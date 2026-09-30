@@ -8,18 +8,22 @@ using UnityEngine;
 public class TypingView : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI _targetTextMesh;
+    private TextMeshProUGUI _typingTextMesh;
 
-    [SerializeField]
-    private TextMeshProUGUI _remainTextMesh;
-    
+    private static string _alphaTagOpen = "<alpha=#88>";
+    private static string _alphaTagClose = "<alpha=#FF>";
+
     private TypingViewModel _typingViewModel;
     private DisposableBag _disposables;
 
     public void Bind(TypingViewModel model)
     {
-        model.TargetText.Subscribe(x => _targetTextMesh.text = x).AddTo(ref _disposables);
-        model.RemainingText.Subscribe(x => _remainTextMesh.text = x).AddTo(ref _disposables);
+        model.CurrentIndex.Subscribe(x => ConvertTextToView(model.TypingText.CurrentValue, x)).AddTo(ref _disposables);
+    }
+
+    public void ConvertTextToView(string typingText, int currentIndex)
+    {
+        _typingTextMesh.text = _alphaTagOpen + typingText.Insert(currentIndex, _alphaTagClose);
     }
 
     private void OnDestroy()

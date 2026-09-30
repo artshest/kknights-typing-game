@@ -609,7 +609,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -972,8 +972,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3f502460520924092b0020f5ef8c77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TypingView
-  _targetTextMesh: {fileID: 1581298329}
-  _remainTextMesh: {fileID: 822976896}
+  _typingTextMesh: {fileID: 822976896}
 --- !u!1 &1581298327
 GameObject:
   m_ObjectHideFlags: 0

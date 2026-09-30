@@ -5,44 +5,27 @@ using UnityEngine;
 
 public class TypingSession
 {
-    public string TargetText { get => _targetText; }
-    public string RemainingText { get => _remainingText; }
+    public string TypingText { get => _typingText; }
+    public int CurrentIndex { get => _currentIndex; }
+    public bool IsCompleted => CurrentIndex >= TypingText.Length;
 
-    [SerializeField]
-    private string _targetText;
-
-    private string _remainingText;
+    private string _typingText;
+    private int _currentIndex;
 
     public TypingSession(string targetText)
     {
-        _targetText = targetText;
-        _remainingText = _targetText;
+        _typingText = targetText;
     }
 
-    public bool ValidateTextInput(char input, out string remainingText, out bool isComplete)
+    public bool ValidateTextInput(char input)
     {
-        isComplete = false;
+        if (IsCompleted) return false;
 
-        if (input != _remainingText.First())
+        bool correct = input == TypingText[CurrentIndex];
+        if (correct)
         {
-            remainingText = _remainingText;
-            return false;
+            _currentIndex++;
         }
-
-        // Строки иммутабельны, потому каждый такой ремув создают новую строку, что засирает память
-        // TODO: подумать, как можно оптимизировать это дело
-        _remainingText = _remainingText.Remove(0, 1);
-
-        remainingText = _remainingText;
-
-        if (_remainingText.Length == 0)
-        {
-            Debug.Log("Текст введен!");
-
-            remainingText = _remainingText;
-            isComplete = true;
-        }
-
-        return true;
+        return correct;
     }
 }
