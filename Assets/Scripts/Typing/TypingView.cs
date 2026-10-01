@@ -10,15 +10,15 @@ public class TypingView : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _typingTextMesh;
 
-    private static string _alphaTagOpen = "<alpha=#88>";
-    private static string _alphaTagClose = "<alpha=#FF>";
+    private static string _alphaTagOpen = "<color=\"white\"><alpha=#33>";
+    private static string _alphaTagClose = "<color=#FF9E4A><alpha=#FF>";
 
     private TypingViewModel _typingViewModel;
     private DisposableBag _disposables;
 
     public void Bind(TypingViewModel model)
     {
-        model.CurrentIndex.Subscribe(x => ConvertTextToView(model.TypingText.CurrentValue, x)).AddTo(ref _disposables);
+        model.CurrentIndex.Subscribe(x => ConvertTextToView(model.TypingText, x)).AddTo(ref _disposables);
     }
 
     public void ConvertTextToView(string typingText, int currentIndex)
