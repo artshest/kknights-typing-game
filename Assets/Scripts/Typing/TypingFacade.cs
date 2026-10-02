@@ -1,11 +1,10 @@
+using System;
 using UnityEngine;
 
 public class TypingFacade : MonoBehaviour
 {
     [SerializeField]
-    [TextArea]
-    private string TargetText;
-
+    private TypingTextProviderFactory _providerFactory;
     [SerializeField]
     private TypingView _typingView;
 
@@ -13,14 +12,24 @@ public class TypingFacade : MonoBehaviour
     private TypingSession _typingSession;
     private TypingViewModel _typingViewModel;
 
-    private void Start()
+    private async void Start()
     {
         // Здесть коннектить все зависимости   
+        try
+        {
+            ITypingTextProvider provider = _providerFactory.Create();
+            string text = await provider.GetTextAsync();
 
-        _typingInput = new TextInputHandler();
+            _typingInput = new TextInputHandler();
 
-        _typingSession = new TypingSession(TargetText);
-        _typingViewModel = new TypingViewModel(_typingInput, _typingSession);
-        _typingView.Bind(_typingViewModel);
+            _typingSession = new TypingSession(text);
+            _typingViewModel = new TypingViewModel(_typingInput, _typingSession);
+            _typingView.Bind(_typingViewModel);
+        }
+        catch(Exception e)
+        {
+            Debug.LogException(e);
+        }
+
     }
 }
