@@ -33,7 +33,7 @@ public class TypingTextProviderFactory : MonoBehaviour
         _chachedProvider = _type switch
         {
             ProviderType.PredefinedText => new PredefinedTextProvider(_predefinedText),
-            ProviderType.PredefinedArticleURL => new URLArticleTextProvider(),
+            ProviderType.PredefinedArticleURL => new URLArticleTextProvider(_articleUrlApi),
             _ => throw new ArgumentOutOfRangeException(nameof(_type))
         };
 

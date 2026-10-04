@@ -12,7 +12,9 @@ namespace Services
 
     public static class CoroutineService
     {
-        private static CoroutineHost _coroutineHost
+        private static CoroutineHost _coroutineHost;
+
+        private static CoroutineHost Host
         {
             get
             {
@@ -32,7 +34,7 @@ namespace Services
 
         public static Coroutine StartCoroutine(IEnumerator routine)
         {
-            return _coroutineHost.StartCoroutine(routine);
+            return Host.StartCoroutine(routine);
         }
     }
 

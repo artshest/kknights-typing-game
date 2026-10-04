@@ -14,7 +14,6 @@ public class TypingFacade : MonoBehaviour
 
     private async void Start()
     {
-        // Здесть коннектить все зависимости   
         try
         {
             ITypingTextProvider provider = _providerFactory.Create();
