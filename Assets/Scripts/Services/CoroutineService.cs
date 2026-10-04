@@ -1,0 +1,42 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using Unity.VisualScripting;
+using UnityEngine;
+
+namespace Services
+{
+    // Не очень мне нравится вся эта статика
+    // Если внедрять DI фреймворк, возможно стоит это все переделать
+
+    public static class CoroutineService
+    {
+        private static CoroutineHost _coroutineHost
+        {
+            get
+            {
+                if (_coroutineHost == null)
+                {
+                    var go = new GameObject("CoroutineRunner");
+                    _coroutineHost = go.AddComponent<CoroutineHost>();
+                    GameObject.DontDestroyOnLoad(go);
+                }
+                return _coroutineHost;
+            }
+            set
+            {
+                _coroutineHost = value;
+            }
+        }
+
+        public static Coroutine StartCoroutine(IEnumerator routine)
+        {
+            return _coroutineHost.StartCoroutine(routine);
+        }
+    }
+
+    public class CoroutineHost : MonoBehaviour
+    {
+    }
+}
