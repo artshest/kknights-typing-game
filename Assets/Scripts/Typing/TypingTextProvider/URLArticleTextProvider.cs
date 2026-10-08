@@ -1,4 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
+using HtmlAgilityPack;
+using Mono.Cecil;
 using Services;
 using System;
 using System.Collections;
@@ -6,11 +8,12 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Networking;
-using HtmlAgilityPack;
+using Newtonsoft.Json.Linq;
 
 public class URLArticleTextProvider : ITypingTextProvider
 {
@@ -23,18 +26,11 @@ public class URLArticleTextProvider : ITypingTextProvider
         _client = new HttpClient();
     }
 
-    // UnityWebRequest не работает по TLS 1.3 (хотя на этой версии Unity должен), а КК по TLS 1.2
-    // Потому заменил на HttpClient
-    // TODO: Сделать вилку на UnityWebRequest и HttpClient взависимости от платформы
-    // Остается только молиться, что в вебе будет работать с tls 1.3 через браузер
-
     public UniTask<string> GetTextAsync(CancellationToken ct = default)
     {
         return LoadTextAsync(_url, ct);
     }
 
-    // В старых статьях нету "document-content", так что надо переделать
-    // TODO: парсить не html, а json документ, котрый уже есть во всех статьях
     private async UniTask<string> LoadTextAsync(string url, CancellationToken ct)
     {
         try
@@ -44,11 +40,13 @@ public class URLArticleTextProvider : ITypingTextProvider
             response.EnsureSuccessStatusCode();
 
             string htmlContent = await response.Content.ReadAsStringAsync().AsUniTask();
-            string paragraph = ExtractFirstParagraph(htmlContent);
 
-            Debug.Log(response.StatusCode + ", " + htmlContent.Length);
+            PostParser.ParsedPost parsedPost = PostParser.Parse(htmlContent); 
 
-            return paragraph;
+            Debug.Log("Title: " + parsedPost.Title);
+            Debug.Log("Text:\n" + parsedPost.Text);
+
+            return parsedPost.Paragraphs[0];
 
         }
         catch (OperationCanceledException)
