@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.coplaydev.unity-mcp": "https://github.com/CoplayDev/unity-mcp.git?path=/MCPForUnity#v10.2.0",
     "com.unity.ai.navigation": "2.0.14",
     "com.unity.collab-proxy": "2.13.6",
     "com.unity.feature.2d": "2.0.2",
@@ -13,7 +14,6 @@
     "com.unity.timeline": "6.6.0",
     "com.unity.ugui": "2.6.0",
     "com.unity.visualscripting": "1.9.12",
-    "org.nuget.htmlagilitypack": "1.13.0",
     "org.nuget.observablecollections.r3": "3.3.4",
     "org.nuget.system.io.pipelines": "10.0.12",
     "org.nuget.unitask": "2.5.11",

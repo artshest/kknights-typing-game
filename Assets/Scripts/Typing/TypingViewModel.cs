@@ -8,13 +8,7 @@ public class TypingViewModel
     public readonly string TypingText;
     public ReadOnlyReactiveProperty<int> CurrentIndex => _currentIndex;
 
-    //private readonly CompositeDisposable _disposables = new();
-
     private readonly ReactiveProperty<int> _currentIndex = new(0);
-    //private readonly ReactiveProperty<int> _lastSymbol = new(0);
-    //private readonly ReactiveProperty<int> _lastCorrectSymbol = new(0);
-    //private readonly ReactiveProperty<int> _lastIncorrectSymbol = new(0);
-
     private ITypingInput _typingInput;
     private TypingSession _typingSession;
 

@@ -1,19 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
-using HtmlAgilityPack;
-using Mono.Cecil;
-using Services;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.Networking;
-using Newtonsoft.Json.Linq;
 
 public class URLArticleTextProvider : ITypingTextProvider
 {
@@ -41,7 +31,7 @@ public class URLArticleTextProvider : ITypingTextProvider
 
             string htmlContent = await response.Content.ReadAsStringAsync().AsUniTask();
 
-            PostParser.ParsedPost parsedPost = PostParser.Parse(htmlContent); 
+            KKnightsPostParser.ParsedPost parsedPost = KKnightsPostParser.Parse(htmlContent); 
 
             Debug.Log("Title: " + parsedPost.Title);
             Debug.Log("Text:\n" + parsedPost.Text);
@@ -60,39 +50,4 @@ public class URLArticleTextProvider : ITypingTextProvider
             throw;
         }
     }
-
-    private string ExtractFirstParagraph(string html)
-    {
-        HtmlDocument doc = new HtmlDocument();
-        doc.LoadHtml(html);
-
-        var contentDiv = doc.DocumentNode.SelectSingleNode("//div[contains(concat(' ', normalize-space(@class), ' '), ' document-content ')]");
-
-        if (contentDiv == null)
-        {
-            Debug.LogError("Блок с классом 'document-content' не найден.");
-            throw new Exception();
-        }
-
-        var paragraphs = contentDiv.SelectNodes(".//p");
-
-        StringBuilder resultText = new StringBuilder();
-
-        if (paragraphs != null)
-        {
-            for(int i = 0; i < 1; i++)
-            {
-                string text = paragraphs[i].InnerText.Trim();
-                if (!string.IsNullOrEmpty(text))
-                {
-                    resultText.AppendLine(text);
-                }
-            }
-
-            Debug.Log("Извлеченный текст:\n" + resultText.ToString());
-        }
-
-        return resultText.ToString();
-    }
-   
 }

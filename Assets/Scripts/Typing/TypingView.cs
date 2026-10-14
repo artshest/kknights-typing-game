@@ -10,6 +10,13 @@ public class TypingView : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _typingTextMesh;
 
+    [Space]
+    [Header("Stats")]
+    [SerializeField]
+    private TextMeshProUGUI _total;
+    private TextMeshProUGUI _speed;
+    private TextMeshProUGUI _totalMistakes;
+
     private static string _alphaTagOpen = "<color=\"white\"><alpha=#33>";
     private static string _alphaTagClose = "<color=#FF9E4A><alpha=#FF>";
 
@@ -19,6 +26,7 @@ public class TypingView : MonoBehaviour
     public void Bind(TypingViewModel model)
     {
         model.CurrentIndex.Subscribe(x => ConvertTextToView(model.TypingText, x)).AddTo(ref _disposables);
+        model.CurrentIndex.Subscribe(x => _total.text = x.ToString()).AddTo(ref _disposables);
     }
 
     public void ConvertTextToView(string typingText, int currentIndex)
