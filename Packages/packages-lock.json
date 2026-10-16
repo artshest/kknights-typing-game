@@ -17,6 +17,13 @@
       },
       "hash": "30d22075093d1d35dfb0091c1c7550e9ad948577"
     },
+    "com.cysharp.unitask": {
+      "version": "2.5.11",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
     "com.unity.2d.animation": {
       "version": "16.0.1",
       "depth": 1,
@@ -461,15 +468,6 @@
       "source": "registry",
       "dependencies": {
         "org.nuget.system.runtime.compilerservices.unsafe": "6.1.2"
-      },
-      "url": "https://package.openupm.com"
-    },
-    "org.nuget.unitask": {
-      "version": "2.5.11",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "org.nuget.system.threading.tasks.extensions": "4.5.4"
       },
       "url": "https://package.openupm.com"
     },

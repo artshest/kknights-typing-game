@@ -1,0 +1,20 @@
+{
+    "name": "KK.Bootstrap",
+    "rootNamespace": "KK.Bootstrap",
+    "references": [
+        "GUID:558c893f653d86d4280aaf2c08fbece7",
+        "GUID:e9726345228aa4b4a9368aed3da446eb",
+        "GUID:97e9a98cb95f54a458e87cc422033074",
+        "GUID:56a147e8f1401214db633bc3612496a3",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

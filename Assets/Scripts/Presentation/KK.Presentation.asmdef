@@ -1,0 +1,18 @@
+{
+    "name": "KK.Presentation",
+    "rootNamespace": "KK.Presentation",
+    "references": [
+        "GUID:558c893f653d86d4280aaf2c08fbece7",
+        "GUID:e9726345228aa4b4a9368aed3da446eb",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

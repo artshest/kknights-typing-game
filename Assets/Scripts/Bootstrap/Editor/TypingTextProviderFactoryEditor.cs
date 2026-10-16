@@ -1,11 +1,8 @@
-﻿#if UNITY_EDITOR
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEditor;
-using UnityEditor.TerrainTools;
 using UnityEngine;
-using static UnityEngine.InputManagerEntry;
 
 [CustomEditor(typeof(TypingTextProviderFactory))]
 public class TypingTextProviderFactoryEditor : Editor
@@ -36,5 +33,3 @@ public class TypingTextProviderFactoryEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 }
-
-#endif

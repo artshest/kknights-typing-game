@@ -1,0 +1,19 @@
+{
+    "name": "KK.Infrastructure",
+    "rootNamespace": "KK.Infrastructure",
+    "references": [
+        "GUID:558c893f653d86d4280aaf2c08fbece7",
+        "GUID:e9726345228aa4b4a9368aed3da446eb",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
