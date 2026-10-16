@@ -1,10 +1,11 @@
 using KK.App.Typing;
 using KK.Core.Typing;
 using R3;
+using System;
 
 namespace KK.Presentation.Typing
 {
-    public class TypingViewModel
+    public class TypingViewModel : IDisposable
     {
         public readonly string TypingText;
         public ReadOnlyReactiveProperty<int> CurrentIndex => _currentIndex;
@@ -29,6 +30,12 @@ namespace KK.Presentation.Typing
             {
                 _currentIndex.Value = _typingSession.CurrentIndex;
             }
+        }
+
+        public void Dispose()
+        {
+            _typingInput.OnTextInput -= HandleTextInput;
+            _currentIndex.Dispose();
         }
     }
 }

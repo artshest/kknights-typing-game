@@ -24,7 +24,7 @@ namespace KK.Bootstrap
             try
             {
                 ITypingTextProvider provider = _providerFactory.Create();
-                string text = await provider.GetTextAsync();
+                string text = await provider.GetTextAsync(destroyCancellationToken);
 
                 _typingInput = new TextInputHandler();
 
@@ -32,11 +32,20 @@ namespace KK.Bootstrap
                 _typingViewModel = new TypingViewModel(_typingInput, _typingSession);
                 _typingView.Bind(_typingViewModel);
             }
-            catch(Exception e)
+            catch (OperationCanceledException)
+            {
+                // Объект уничтожили во время загрузки — это штатная ситуация, не ошибка
+            }
+            catch (Exception e)
             {
                 Debug.LogException(e);
             }
+        }
 
+        private void OnDestroy()
+        {
+            _typingViewModel?.Dispose();
+            _typingInput?.Dispose();
         }
     }
 }
