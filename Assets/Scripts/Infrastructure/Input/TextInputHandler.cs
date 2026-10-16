@@ -1,41 +1,45 @@
+using KK.App.Typing;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class TextInputHandler : ITypingInput
+namespace KK.Infrastructure.Input
 {
-    public event Action<char> OnTextInput;
-
-    public TextInputHandler()
+    public class TextInputHandler : ITypingInput
     {
-        if (Keyboard.current == null)
+        public event Action<char> OnTextInput;
+
+        public TextInputHandler()
         {
-            Debug.LogError("There is no current Keyboard");
-            return;
+            if (Keyboard.current == null)
+            {
+                Debug.LogError("There is no current Keyboard");
+                return;
+            }
+
+            Keyboard.current.onTextInput += ValidateInput;
         }
 
-        Keyboard.current.onTextInput += ValidateInput;
-    }
-
-    ~TextInputHandler()
-    {
-        if (Keyboard.current != null)
-            Keyboard.current.onTextInput -= ValidateInput;
-    }
-
-    private void ValidateInput(char ch)
-    {
-        if (ch == '\b') // Backspace
+        ~TextInputHandler()
         {
-            return;
+            if (Keyboard.current != null)
+                Keyboard.current.onTextInput -= ValidateInput;
         }
 
-        if (ch == '\r' || ch == '\n') // Enter
+        private void ValidateInput(char ch)
         {
-            return;
+            if (ch == '\b') // Backspace
+            {
+                return;
+            }
+
+            if (ch == '\r' || ch == '\n') // Enter
+            {
+                return;
+            }
+
+            OnTextInput?.Invoke(ch);
         }
 
-        OnTextInput?.Invoke(ch);
     }
-
 }

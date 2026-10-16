@@ -1,27 +1,29 @@
-
-public class TypingSession
+namespace KK.Core.Typing
 {
-    public string TypingText { get => _typingText; }
-    public int CurrentIndex { get => _currentIndex; }
-    public bool IsCompleted => CurrentIndex >= TypingText.Length;
-
-    private string _typingText;
-    private int _currentIndex;
-
-    public TypingSession(string targetText)
+    public class TypingSession
     {
-        _typingText = targetText;
-    }
+        public string TypingText { get => _typingText; }
+        public int CurrentIndex { get => _currentIndex; }
+        public bool IsCompleted => CurrentIndex >= TypingText.Length;
 
-    public bool ValidateTextInput(char input)
-    {
-        if (IsCompleted) return false;
+        private string _typingText;
+        private int _currentIndex;
 
-        bool correct = input == TypingText[CurrentIndex];
-        if (correct)
+        public TypingSession(string targetText)
         {
-            _currentIndex++;
+            _typingText = targetText;
         }
-        return correct;
+
+        public bool ValidateTextInput(char input)
+        {
+            if (IsCompleted) return false;
+
+            bool correct = input == TypingText[CurrentIndex];
+            if (correct)
+            {
+                _currentIndex++;
+            }
+            return correct;
+        }
     }
 }

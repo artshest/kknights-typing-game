@@ -1,11 +1,7 @@
-﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Services
+namespace KK.Infrastructure.Coroutines
 {
     // Не очень мне нравится вся эта статика
     // Если внедрять DI фреймворк, возможно стоит это все переделать

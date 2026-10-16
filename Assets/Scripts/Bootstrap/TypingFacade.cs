@@ -1,34 +1,42 @@
+using KK.App.Texts;
+using KK.App.Typing;
+using KK.Core.Typing;
+using KK.Infrastructure.Input;
+using KK.Presentation.Typing;
 using System;
 using UnityEngine;
 
-public class TypingFacade : MonoBehaviour
+namespace KK.Bootstrap
 {
-    [SerializeField]
-    private TypingTextProviderFactory _providerFactory;
-    [SerializeField]
-    private TypingView _typingView;
-
-    private ITypingInput _typingInput;
-    private TypingSession _typingSession;
-    private TypingViewModel _typingViewModel;
-
-    private async void Start()
+    public class TypingFacade : MonoBehaviour
     {
-        try
+        [SerializeField]
+        private TypingTextProviderFactory _providerFactory;
+        [SerializeField]
+        private TypingView _typingView;
+
+        private ITypingInput _typingInput;
+        private TypingSession _typingSession;
+        private TypingViewModel _typingViewModel;
+
+        private async void Start()
         {
-            ITypingTextProvider provider = _providerFactory.Create();
-            string text = await provider.GetTextAsync();
+            try
+            {
+                ITypingTextProvider provider = _providerFactory.Create();
+                string text = await provider.GetTextAsync();
 
-            _typingInput = new TextInputHandler();
+                _typingInput = new TextInputHandler();
 
-            _typingSession = new TypingSession(text);
-            _typingViewModel = new TypingViewModel(_typingInput, _typingSession);
-            _typingView.Bind(_typingViewModel);
+                _typingSession = new TypingSession(text);
+                _typingViewModel = new TypingViewModel(_typingInput, _typingSession);
+                _typingView.Bind(_typingViewModel);
+            }
+            catch(Exception e)
+            {
+                Debug.LogException(e);
+            }
+
         }
-        catch(Exception e)
-        {
-            Debug.LogException(e);
-        }
-
     }
 }

@@ -1,32 +1,34 @@
-﻿using R3;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using KK.App.Typing;
+using KK.Core.Typing;
+using R3;
 
-public class TypingViewModel 
+namespace KK.Presentation.Typing
 {
-    public readonly string TypingText;
-    public ReadOnlyReactiveProperty<int> CurrentIndex => _currentIndex;
-
-    private readonly ReactiveProperty<int> _currentIndex = new(0);
-    private ITypingInput _typingInput;
-    private TypingSession _typingSession;
-
-    public TypingViewModel(ITypingInput typingInput, TypingSession typingSession)
+    public class TypingViewModel
     {
-        _typingInput = typingInput;
-        _typingSession = typingSession;
+        public readonly string TypingText;
+        public ReadOnlyReactiveProperty<int> CurrentIndex => _currentIndex;
 
-        TypingText = _typingSession.TypingText;
+        private readonly ReactiveProperty<int> _currentIndex = new(0);
+        private ITypingInput _typingInput;
+        private TypingSession _typingSession;
 
-        _typingInput.OnTextInput += _typingInput_OnTextInput;
-    }
-
-    private void _typingInput_OnTextInput(char obj)
-    {
-        if(_typingSession.ValidateTextInput(obj))
+        public TypingViewModel(ITypingInput typingInput, TypingSession typingSession)
         {
-            _currentIndex.Value = _typingSession.CurrentIndex;
+            _typingInput = typingInput;
+            _typingSession = typingSession;
+
+            TypingText = _typingSession.TypingText;
+
+            _typingInput.OnTextInput += _typingInput_OnTextInput;
+        }
+
+        private void _typingInput_OnTextInput(char obj)
+        {
+            if(_typingSession.ValidateTextInput(obj))
+            {
+                _currentIndex.Value = _typingSession.CurrentIndex;
+            }
         }
     }
 }

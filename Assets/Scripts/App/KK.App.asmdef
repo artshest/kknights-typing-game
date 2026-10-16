@@ -1,6 +1,6 @@
 {
-    "name": "KK.Application",
-    "rootNamespace": "KK.Application",
+    "name": "KK.App",
+    "rootNamespace": "KK.App",
     "references": [
         "GUID:558c893f653d86d4280aaf2c08fbece7",
         "GUID:f51ebe6a0ceec4240a699833d6309b23"

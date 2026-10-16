@@ -1,53 +1,56 @@
-﻿using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using KK.App.Texts;
 using System;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using UnityEngine;
 
-public class URLArticleTextProvider : ITypingTextProvider
+namespace KK.Infrastructure.Texts.KKnights
 {
-    private string _url;
-    private readonly HttpClient _client;
-
-    public URLArticleTextProvider(string url)
+    public class URLArticleTextProvider : ITypingTextProvider
     {
-        _url = url;
-        _client = new HttpClient();
-    }
+        private string _url;
+        private readonly HttpClient _client;
 
-    public UniTask<string> GetTextAsync(CancellationToken ct = default)
-    {
-        return LoadTextAsync(_url, ct);
-    }
-
-    private async UniTask<string> LoadTextAsync(string url, CancellationToken ct)
-    {
-        try
+        public URLArticleTextProvider(string url)
         {
-            HttpResponseMessage response = await _client.GetAsync(url, ct).AsUniTask();
-
-            response.EnsureSuccessStatusCode();
-
-            string htmlContent = await response.Content.ReadAsStringAsync().AsUniTask();
-
-            KKnightsPostParser.ParsedPost parsedPost = KKnightsPostParser.Parse(htmlContent); 
-
-            Debug.Log("Title: " + parsedPost.Title);
-            Debug.Log("Text:\n" + parsedPost.Text);
-
-            return parsedPost.Paragraphs[0];
-
+            _url = url;
+            _client = new HttpClient();
         }
-        catch (OperationCanceledException)
+
+        public UniTask<string> GetTextAsync(CancellationToken ct = default)
         {
-            Debug.Log("Загрузка отменена.");
-            throw;
+            return LoadTextAsync(_url, ct);
         }
-        catch (Exception e)
+
+        private async UniTask<string> LoadTextAsync(string url, CancellationToken ct)
         {
-            Debug.LogError($"Ошибка при использовании HttpClient: {e.Message}");
-            throw;
+            try
+            {
+                HttpResponseMessage response = await _client.GetAsync(url, ct).AsUniTask();
+
+                response.EnsureSuccessStatusCode();
+
+                string htmlContent = await response.Content.ReadAsStringAsync().AsUniTask();
+
+                KKnightsPostParser.ParsedPost parsedPost = KKnightsPostParser.Parse(htmlContent);
+
+                Debug.Log("Title: " + parsedPost.Title);
+                Debug.Log("Text:\n" + parsedPost.Text);
+
+                return parsedPost.Paragraphs[0];
+
+            }
+            catch (OperationCanceledException)
+            {
+                Debug.Log("Загрузка отменена.");
+                throw;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Ошибка при использовании HttpClient: {e.Message}");
+                throw;
+            }
         }
     }
 }

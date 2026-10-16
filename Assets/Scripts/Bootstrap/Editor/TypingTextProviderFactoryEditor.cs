@@ -1,35 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(TypingTextProviderFactory))]
-public class TypingTextProviderFactoryEditor : Editor
+namespace KK.Bootstrap.Editor
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(TypingTextProviderFactory))]
+    public class TypingTextProviderFactoryEditor : UnityEditor.Editor
     {
-        var factory = (TypingTextProviderFactory)target;
-
-        var type = serializedObject.FindProperty("_type");
-        EditorGUILayout.PropertyField(type);
-
-        var enumValue = (TypingTextProviderFactory.ProviderType)type.enumValueIndex;
-        switch (enumValue)
+        public override void OnInspectorGUI()
         {
-            case TypingTextProviderFactory.ProviderType.PredefinedText:
-                
-                // Почему-то если не делать GUIContent.none, то в инспекторе рисуется 2 лейбла проперти, 
-                // один из которых налезает на проперти type. Так что пока убрал лейбл
-                // TODO: разобраться почему так!
+            var type = serializedObject.FindProperty("_type");
+            EditorGUILayout.PropertyField(type);
 
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("_predefinedText"), GUIContent.none);
-                break;
-            case TypingTextProviderFactory.ProviderType.PredefinedArticleURL:
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("_articleUrlApi"));
-                break;
+            var enumValue = (TypingTextProviderFactory.ProviderType)type.enumValueIndex;
+            switch (enumValue)
+            {
+                case TypingTextProviderFactory.ProviderType.PredefinedText:
+
+                    // Почему-то если не делать GUIContent.none, то в инспекторе рисуется 2 лейбла проперти,
+                    // один из которых налезает на проперти type. Так что пока убрал лейбл
+                    // TODO: разобраться почему так!
+
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("_predefinedText"), GUIContent.none);
+                    break;
+                case TypingTextProviderFactory.ProviderType.PredefinedArticleURL:
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("_articleUrlApi"));
+                    break;
+            }
+
+            serializedObject.ApplyModifiedProperties();
         }
-
-        serializedObject.ApplyModifiedProperties();
     }
 }
