@@ -11,7 +11,7 @@ namespace KK.Bootstrap
         public enum ProviderType
         {
             PredefinedText,
-            PredefinedArticleURL
+            PredefinedArticleUrl
         }
 
         [SerializeField]
@@ -23,29 +23,29 @@ namespace KK.Bootstrap
         [SerializeField]
         private string _articleUrlApi;
 
-        private ITypingTextProvider _chachedProvider;
+        private ITypingTextProvider _cachedProvider;
 
         public ITypingTextProvider Create()
         {
-            if (_chachedProvider != null)
+            if (_cachedProvider != null)
             {
-                return _chachedProvider;
+                return _cachedProvider;
             }
 
-            _chachedProvider = _type switch
+            _cachedProvider = _type switch
             {
                 ProviderType.PredefinedText => new PredefinedTextProvider(_predefinedText),
-                ProviderType.PredefinedArticleURL => new URLArticleTextProvider(_articleUrlApi),
+                ProviderType.PredefinedArticleUrl => new UrlArticleTextProvider(_articleUrlApi),
                 _ => throw new ArgumentOutOfRangeException(nameof(_type))
             };
 
-            return _chachedProvider;
+            return _cachedProvider;
         }
 
         private void OnDisable()
         {
-            if (_chachedProvider is IDisposable d) d.Dispose();
-            _chachedProvider = null;
+            if (_cachedProvider is IDisposable d) d.Dispose();
+            _cachedProvider = null;
         }
     }
 }

@@ -10,8 +10,8 @@ namespace KK.Presentation.Typing
         public ReadOnlyReactiveProperty<int> CurrentIndex => _currentIndex;
 
         private readonly ReactiveProperty<int> _currentIndex = new(0);
-        private ITypingInput _typingInput;
-        private TypingSession _typingSession;
+        private readonly ITypingInput _typingInput;
+        private readonly TypingSession _typingSession;
 
         public TypingViewModel(ITypingInput typingInput, TypingSession typingSession)
         {
@@ -20,12 +20,12 @@ namespace KK.Presentation.Typing
 
             TypingText = _typingSession.TypingText;
 
-            _typingInput.OnTextInput += _typingInput_OnTextInput;
+            _typingInput.OnTextInput += HandleTextInput;
         }
 
-        private void _typingInput_OnTextInput(char obj)
+        private void HandleTextInput(char input)
         {
-            if(_typingSession.ValidateTextInput(obj))
+            if (_typingSession.TryType(input))
             {
                 _currentIndex.Value = _typingSession.CurrentIndex;
             }

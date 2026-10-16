@@ -1514,6 +1514,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TypingView
   _typingTextMesh: {fileID: 822976896}
   _total: {fileID: 2023449724}
+  _speed: {fileID: 483733536}
+  _totalMistakes: {fileID: 1414430722}
 --- !u!1 &1230373425
 GameObject:
   m_ObjectHideFlags: 0

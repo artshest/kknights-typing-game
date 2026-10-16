@@ -22,7 +22,7 @@ namespace KK.Bootstrap.Editor
 
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("_predefinedText"), GUIContent.none);
                     break;
-                case TypingTextProviderFactory.ProviderType.PredefinedArticleURL:
+                case TypingTextProviderFactory.ProviderType.PredefinedArticleUrl:
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("_articleUrlApi"));
                     break;
             }

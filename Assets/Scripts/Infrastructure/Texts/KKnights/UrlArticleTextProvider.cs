@@ -7,12 +7,12 @@ using UnityEngine;
 
 namespace KK.Infrastructure.Texts.KKnights
 {
-    public class URLArticleTextProvider : ITypingTextProvider
+    public class UrlArticleTextProvider : ITypingTextProvider
     {
         private string _url;
         private readonly HttpClient _client;
 
-        public URLArticleTextProvider(string url)
+        public UrlArticleTextProvider(string url)
         {
             _url = url;
             _client = new HttpClient();

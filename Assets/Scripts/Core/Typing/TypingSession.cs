@@ -1,3 +1,5 @@
+using System;
+
 namespace KK.Core.Typing
 {
     public class TypingSession
@@ -6,15 +8,21 @@ namespace KK.Core.Typing
         public int CurrentIndex { get => _currentIndex; }
         public bool IsCompleted => CurrentIndex >= TypingText.Length;
 
-        private string _typingText;
+        private readonly string _typingText;
         private int _currentIndex;
 
         public TypingSession(string targetText)
         {
+            if (string.IsNullOrEmpty(targetText))
+                throw new ArgumentException("Текст для набора пустой", nameof(targetText));
+
             _typingText = targetText;
         }
 
-        public bool ValidateTextInput(char input)
+        /// <summary>
+        /// Пытается напечатать символ: при совпадении с ожидаемым сдвигает курсор и возвращает true.
+        /// </summary>
+        public bool TryType(char input)
         {
             if (IsCompleted) return false;
 
