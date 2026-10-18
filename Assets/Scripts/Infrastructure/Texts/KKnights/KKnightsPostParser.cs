@@ -7,9 +7,6 @@ using System.Text.RegularExpressions;
 
 namespace KK.Infrastructure.Texts.KKnights
 {
-    /// <summary>
-    /// Парсит ответ API kknights.com (/api/v1/post/{slug}/) в текст поста.
-    /// </summary>
     public static class KKnightsPostParser
     {
         public class ParsedPost
@@ -20,7 +17,6 @@ namespace KK.Infrastructure.Texts.KKnights
             public List<string> Paragraphs = new List<string>();
         }
 
-        // Теги, закрывающие абзац: всё между ними становится отдельным абзацем
         private static readonly Regex ParagraphBreakRegex = new Regex(
             @"</\s*(?:p|li|h[1-6]|blockquote|div)\s*>|<\s*br\s*/?\s*>",
             RegexOptions.IgnoreCase | RegexOptions.Compiled);
@@ -28,11 +24,7 @@ namespace KK.Infrastructure.Texts.KKnights
         private static readonly Regex TagRegex = new Regex(@"<[^>]+>", RegexOptions.Compiled);
         private static readonly Regex WhitespaceRegex = new Regex(@"\s+", RegexOptions.Compiled);
 
-        /// <summary>
-        /// Парсит JSON поста. На сайте два формата редактора:
-        /// "blocks" — массив content с HTML в json.content каждого блока;
-        /// "document" — дерево узлов в document.doc (формат ProseMirror/TipTap).
-        /// </summary>
+        // У сайта два формата редактора: "blocks" (HTML в content[].json.content) и "document" (дерево ProseMirror/TipTap)
         public static ParsedPost Parse(string json)
         {
             if (string.IsNullOrEmpty(json))
@@ -59,10 +51,6 @@ namespace KK.Infrastructure.Texts.KKnights
             return post;
         }
 
-        /// <summary>
-        /// Формат "blocks": текст лежит HTML-строкой в json.content;
-        /// блоки без текста (embed) пропускаются.
-        /// </summary>
         private static void ParseBlocks(JArray blocks, List<string> paragraphs)
         {
             foreach (JToken block in blocks)
@@ -74,11 +62,6 @@ namespace KK.Infrastructure.Texts.KKnights
             }
         }
 
-        /// <summary>
-        /// Формат "document": рекурсивно обходит дерево узлов. Узлы "text" дают текст,
-        /// "hardBreak" и конец любого блочного узла (paragraph, heading, sideGallery…)
-        /// завершают абзац. Узлы без текста (gallery, divider) ничего не добавляют.
-        /// </summary>
         private static void ParseDocument(JObject doc, List<string> paragraphs)
         {
             WalkNode(doc, new StringBuilder(), paragraphs);
@@ -114,9 +97,6 @@ namespace KK.Infrastructure.Texts.KKnights
                 paragraphs.Add(text);
         }
 
-        /// <summary>
-        /// Делит HTML-фрагмент на абзацы и превращает каждый в чистый текст.
-        /// </summary>
         private static IEnumerable<string> ExtractParagraphs(string html)
         {
             foreach (string part in ParagraphBreakRegex.Split(html))

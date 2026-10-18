@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace KK.Core.Typing
 {
@@ -7,8 +8,10 @@ namespace KK.Core.Typing
         public string TypingText { get => _typingText; }
         public int CurrentIndex { get => _currentIndex; }
         public bool IsCompleted => CurrentIndex >= TypingText.Length;
+        public IReadOnlyList<Keystroke> Keystrokes => _keystrokes;
 
         private readonly string _typingText;
+        private readonly List<Keystroke> _keystrokes = new();
         private int _currentIndex;
 
         public TypingSession(string targetText)
@@ -19,19 +22,29 @@ namespace KK.Core.Typing
             _typingText = targetText;
         }
 
-        /// <summary>
-        /// Пытается напечатать символ: при совпадении с ожидаемым сдвигает курсор и возвращает true.
-        /// </summary>
-        public bool TryType(char input)
+        public bool TryType(char input, TimeSpan time, out Keystroke keystroke)
         {
-            if (IsCompleted) return false;
+            if (IsCompleted)
+            {
+                keystroke = default;
+                return false;
+            }
 
-            bool correct = input == TypingText[CurrentIndex];
-            if (correct)
+            keystroke = new Keystroke(_currentIndex, _typingText[_currentIndex], input, time);
+            _keystrokes.Add(keystroke);
+
+            if (keystroke.IsCorrect)
             {
                 _currentIndex++;
             }
-            return correct;
+            return true;
+        }
+
+        public TypingResult GetResult(TimeSpan now)
+        {
+            // После завершения now игнорируется, иначе итоговая скорость падала бы с течением времени
+            TimeSpan end = IsCompleted ? _keystrokes[_keystrokes.Count - 1].Time : now;
+            return StatsCalculator.Calculate(_keystrokes, end);
         }
     }
 }

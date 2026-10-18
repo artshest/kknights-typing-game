@@ -24,7 +24,7 @@ public class SSLTest : MonoBehaviour
         foreach (string url in testUrls)
         {
             yield return StartCoroutine(TestUrl(url));
-            yield return new WaitForSeconds(0.5f); // небольшая пауза между запросами
+            yield return new WaitForSeconds(0.5f);
         }
 
         Debug.Log("=== ТЕСТ ЗАВЕРШЁН ===");
@@ -34,7 +34,7 @@ public class SSLTest : MonoBehaviour
     {
         using (UnityWebRequest req = UnityWebRequest.Get(url))
         {
-            req.timeout = 15; // 15 секунд на запрос, чтобы не ждать вечно
+            req.timeout = 15;
 
             float startTime = Time.realtimeSinceStartup;
             yield return req.SendWebRequest();
