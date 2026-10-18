@@ -6,6 +6,7 @@ A typing trainer built in Unity, with a clean layered architecture designed to g
 ![C#](https://img.shields.io/badge/Language-C%23-512BD4)
 ![Platforms](https://img.shields.io/badge/Platforms-WebGL%20%7C%20Windows-blue)
 ![Architecture](https://img.shields.io/badge/Architecture-Clean%20%2B%20MVVM-6f42c1)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 **[English](#english) | [Русский](#russian)**
 
@@ -132,6 +133,10 @@ Assets/Scripts/
 - GitHub: https://github.com/...
 - Telegram / Email / LinkedIn: ... -->
 
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
 ---
 
 <a id="russian"></a>
@@ -254,3 +259,7 @@ Assets/Scripts/
 <!-- TODO: добавить контакты
 - GitHub: https://github.com/...
 - Telegram / Email / LinkedIn: ... -->
+
+## Лицензия
+
+Проект распространяется по лицензии [MIT](LICENSE).
