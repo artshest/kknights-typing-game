@@ -38,6 +38,11 @@ namespace KK.Infrastructure.Input
             if (change == InputDeviceChange.Removed && keyboard == _keyboard)
             {
                 UnsubscribeFromKeyboardInput();
+
+                // Keyboard.current здесь ещё null: новую текущую клавиатуру Input System назначит только после слушателей
+                Keyboard remaining = InputSystem.GetDevice<Keyboard>();
+                if (remaining != null)
+                    SubscribeOnKeyboardInput(remaining);
             }
 
             if (change == InputDeviceChange.Added && _keyboard == null)
