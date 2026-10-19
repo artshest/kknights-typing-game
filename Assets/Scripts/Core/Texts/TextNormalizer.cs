@@ -14,6 +14,8 @@ namespace KK.Core.Texts
             if (options == null)
                 throw new ArgumentNullException(nameof(options));
 
+            text = text.Normalize(NormalizationForm.FormC);
+            
             var result = new StringBuilder(text.Length);
             foreach (char ch in text)
             {

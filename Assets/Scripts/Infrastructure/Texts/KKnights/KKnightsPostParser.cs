@@ -34,7 +34,7 @@ namespace KK.Infrastructure.Texts.KKnights
 
             var post = new ParsedPost
             {
-                Title = (string)root["title"],
+                Title = WebUtility.HtmlDecode((string)root["title"]),
                 Slug = (string)root["slug"]
             };
 
