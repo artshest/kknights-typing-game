@@ -1,0 +1,926 @@
+{
+  "id": 1508,
+  "image": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/post/1508/background/c612bea0324e4a639411e1556b52cf87.jpg",
+  "is_video_background": false,
+  "background_preview": null,
+  "user": {
+    "id": 20,
+    "username": "Panda Shiren",
+    "avatar": {
+      "tiny": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/avatar/8855cb69604b4dd0aa30339e0efda6ff.jpg",
+      "small": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/avatar/4f96b72de6064afd861db8d9867dc039.jpg",
+      "big": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/avatar/01303fdb032f421d9f07e08af2e591c0.jpg"
+    },
+    "background_url": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/background/b62eaea921c342638400f99e479de81c.gif",
+    "is_supporter": null,
+    "social_accounts": [
+      {
+        "id": 12,
+        "title": "Steam",
+        "icon": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/social/icon/f6a2bac83e5848a3ad3ddcd9be792f90.svg",
+        "background": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/social/background/dff57aa0cdfd4c6a8fa999da302a2c0f.svg",
+        "is_link": true,
+        "social_uid": "https://steamcommunity.com/id/PandaShiren/"
+      },
+      {
+        "id": 49,
+        "title": "Twitch",
+        "icon": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/social/icon/4e47d2bfbe904269a76d43134f35ca35.svg",
+        "background": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/social/background/5100a8bef12a478280362784d55b8e8d.svg",
+        "is_link": true,
+        "social_uid": "https://www.twitch.tv/PandaShiren"
+      },
+      {
+        "id": 51,
+        "title": "Battle.net",
+        "icon": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/social/icon/5ad87f9119b04357a70596727c643fef.svg",
+        "background": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/social/background/15355ec5b4bf4ad190300a0a9998e5e9.svg",
+        "is_link": false,
+        "social_uid": "Panda#22524"
+      },
+      {
+        "id": 52,
+        "title": "GOG",
+        "icon": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/social/icon/a2deb39f44a448438162d1f9b50b7c28.svg",
+        "background": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/social/background/a467bf6015994b4098cbd463d4fedfb2.svg",
+        "is_link": true,
+        "social_uid": "https://www.gog.com/u/PandaShiren"
+      },
+      {
+        "id": 56,
+        "title": "Ubisoft",
+        "icon": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/social/icon/56ab925cac6d4f2cbef9c534b8c845ba.svg",
+        "background": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/social/background/99021bbfc989490f968de7c2d8a5dfe9.svg",
+        "is_link": true,
+        "social_uid": "https://club.ubisoft.com/ru-RU/profile/PandaShiren/"
+      },
+      {
+        "id": 50,
+        "title": "Live",
+        "icon": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/social/icon/a9abe353b73c47989082c275f67c7eaf.svg",
+        "background": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/social/background/268a1cd94f4a46348f675d9b317f44d5.svg",
+        "is_link": true,
+        "social_uid": "https://account.xbox.com/ru-ru/profile?gamertag=Panda%20Shiren"
+      },
+      {
+        "id": 55,
+        "title": "PSN",
+        "icon": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/social/icon/0505e19ef6d64327b27eb1e1077cbe56.svg",
+        "background": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/social/background/bf32d0118be446aca23cf4bda9b425d8.svg",
+        "is_link": false,
+        "social_uid": "PandaShiren"
+      },
+      {
+        "id": 847,
+        "title": "Discord",
+        "icon": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/social/icon/1f6a2d0e37b14aafb9ae9a844c35766f.svg",
+        "background": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/social/background/48f0fc6d628d42dab2cc52e8f82b29fa.svg",
+        "is_link": false,
+        "social_uid": "pandashiren"
+      },
+      {
+        "id": 898,
+        "title": "Личный Блог",
+        "icon": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/social/icon/b8f0776572af45d88de8f60531b18a8f.svg",
+        "background": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/social/background/90e5323417a54384850a6325ab764a5f.svg",
+        "is_link": true,
+        "social_uid": "https://kknights.com"
+      }
+    ],
+    "wallet": "410017135884709"
+  },
+  "main_tag": {
+    "id": 487,
+    "name": "Активность",
+    "slug": "activity"
+  },
+  "tags": [
+    {
+      "id": 487,
+      "name": "Активность",
+      "slug": "activity"
+    },
+    {
+      "id": 789,
+      "name": "Старое&Доброе",
+      "slug": "staroe-dobroe"
+    }
+  ],
+  "title": "Старое &amp; Доброе фэнтези",
+  "short_title": "Старое &amp; Доброе фэнтези",
+  "description": "Для участия в активности выбрал для себя платформу ПК. Первый собственный компьютер у меня появился достаточно поздно относительно друзей и знакомых,…",
+  "slug": "1508-staroe-dobroe-fentezi",
+  "preview": "Для участия в активности выбрал для себя платформу ПК. Первый собственный компьютер у меня появился достаточно поздно относительно друзей и знакомых, аж в 2002-м. Когда мои одноклассники наяривали на Doom и Diablo, я после уроков гонял синего ежа на с…",
+  "editor_version": "blocks",
+  "content": [
+    {
+      "json": {
+        "content": "\u003Cp\u003EДля участия в активности выбрал для себя платформу ПК. Первый собственный компьютер у меня появился достаточно поздно относительно друзей и знакомых, аж в 2002-м. Когда мои одноклассники наяривали на Doom и Diablo, я после уроков гонял синего ежа на своей Genesis и был счастлив. Но всё изменилось, когда одной прекрасной ночью брат привёз из поездки в Москву заветный ящик. Ну ладно, изменилось не всё, ретро игры я по-прежнему люблю и обожаю. Но мир гейминга для меня был открыт по-новому.\u003C/p\u003E\u003Cp\u003EКомпьютер был бэушный, его нам отдал дядя, так что какой-то набор игрушек на нём уже стоял. Первой игрой, которую мне показал брат со словами \"Ты офигеешь!\", была Medal of Honor: Allied Assault. Признаться честно, я действительно офигел. Ещё вчера я собирал колечки в 2D платформере, держа в руках пультик с одиннадцатью кнопками, а сейчас бегаю с винтовкой и раскидываю гранаты во вражин, и передо мной здоровенный пульт управления с миллионом клавиш. Напомню, дело было ночью, и пора было уже ложиться спать, поэтому я с нетерпением предвкушал, что же меня ждёт завтра. И оно ждало. А точнее она — игра, которая навсегда влюбила меня в жанр фэнтезийных экшн РПГ во всех проявлениях и которую я прошёл только сейчас, двадцать лет спустя. Итак, встречайте...\u003C/p\u003E"
+      },
+      "block": "paragraph",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "content": "\u003Ch2\u003ENox\u003C/h2\u003E\u003Cp\u003EНет, это не та игра. «Нокс» я прошёл на тот случай, если бы не успел закончить задуманную игру, так как ворвался в ивент я поздновато. Но раз уж получилось к сроку пройти и эту и другую, то почему бы не написать про обе.\u003C/p\u003E\u003Cp\u003EСюжет довольно простой. Тёмная владычица мира Нокс Гекуба проводит ритуал по призыву могучей волшебной сферы, которая оказывается обыкновенным пылесборником у простого парнишки Джека из нашего мира. В результате заклинания сфера вместе с Джеком телепортируются в Нокс. Артефакт попадает в руки главной злодейки, а главный герой приземляется на борт дирижабля старого капитана, которому-то и требуется помощь. В общем, история, где добрый герой побеждает злого злодея безо всяких мотиваций и мук выбора. Когда-то нам и такого хватало. Скажу по секрету, мне и сейчас этого было достаточно.\u003C/p\u003E"
+      },
+      "block": "paragraph",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "images": [
+          {
+            "id": 55556,
+            "url": "/live/m/picture/9afdd59a9c76469ca7a1a16f40a09efd.png",
+            "width": 640,
+            "height": 480,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55543,
+            "url": "/live/m/picture/cb1664fa80094707b111b36291134179.png",
+            "width": 1024,
+            "height": 768,
+            "caption": "Чуешь? Ностальгией пахнет",
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55544,
+            "url": "/live/m/picture/44cca2bc52a943468761c3a5ccc11def.png",
+            "width": 1024,
+            "height": 768,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55545,
+            "url": "/live/m/picture/047f0bc260b94855951bde821636e006.png",
+            "width": 1024,
+            "height": 768,
+            "preview": null,
+            "is_video": false
+          }
+        ]
+      },
+      "block": "gallery",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "content": "\u003Cp\u003EИгру можно начать за один из трёх классов, к которым привязана сложность. Так мы получаем: воин — лёгкая, заклинатель — средняя, маг — высокая. Воин не владеет магией, но имеет боевые навыки, носит самую тяжёлую и прочную броню,  и орудует всевозможными мечами, щитами, топорами и молотами. Заклинатель ходит в кожаных доспехах, может колдовать простенькие заклинания и приручать враждебных существ, а в поздней стадии игры ещё и призывать. На вооружении у него боевые посохи и луки с арбалетами. За этот класс я проходил игру. Маг носит робы, владеет мощными заклинаниями и магическими посохами. Также от класса будут зависеть начальные главы игры и финальное испытание. \u003C/p\u003E"
+      },
+      "block": "paragraph",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "images": [
+          {
+            "id": 55546,
+            "url": "/live/m/picture/b1b5767362d04ec485dc7646e0e83063.png",
+            "width": 1024,
+            "height": 768,
+            "caption": "Хорошие пёсики. Тебе нравятся пёсики?",
+            "preview": null,
+            "is_video": false
+          }
+        ]
+      },
+      "block": "gallery",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "content": "\u003Cp\u003EЕсли смотреть на скриншоты, то можно подумать, что это какой-нибудь диаблоид. Но это не так, в игре нон-таргет боевая система и даже, представьте себе, прыжок! Если в ближнем бою всё довольно просто — подходим вплотную и закликиваем супостатов до их смерти, то для точной стрельбы или применения заклинаний порой необходимо постараться. Прокачки как таковой в игре нет. Да, мы получаем опыт за убитых врагов и выполнение заданий, и даже повышается уровень персонажа, вместе с которым растут и показатели здоровья и маны, но как-то повлиять на эти атрибуты, допустим той же экипировкой, мы не можем, а сами они изменяются настолько незначительно, что можно было бы без такой системы обойтись и ничего не потерять.\u003C/p\u003E\u003Cp\u003EСамым важным показателем для меня в итоге оказался переносимый вес. Он ограничен. Весь эквип имеет прочность, а починить его можно только у торговцев, которые с середины игры появляются всё реже и реже. Поэтому приходилось таскать с собой по нескольку комплектов брони и оружия. В начале игры это ощущается не так сильно, но под конец шмотки желтеют и краснеют с незавидной скоростью.\u003C/p\u003E\u003Cp\u003EГоворя о прыжке, он нам понадобится не раз. На локациях повсюду раскиданы различные переключатели, которые приводят в действие смертельные ловушки, а также ямы, на дне которых нас поджидают кровожадные враги. Всего этого мы и будем избегать при помощи прыжка.\u003C/p\u003E"
+      },
+      "block": "paragraph",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "images": [
+          {
+            "id": 55553,
+            "url": "/live/m/picture/e761ae2024fc4b8d8acd12bfe79d4655.png",
+            "width": 1024,
+            "height": 768,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55554,
+            "url": "/live/m/picture/43db0c373cca4b3a8e0c5c37426615a4.png",
+            "width": 1024,
+            "height": 768,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55555,
+            "url": "/live/m/picture/fe2d5bb29f01498db558d84715ec3f1c.png",
+            "width": 1024,
+            "height": 768,
+            "preview": null,
+            "is_video": false
+          }
+        ]
+      },
+      "block": "gallery",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "content": "\u003Cp\u003EИгра абсолютно линейна. Хоть просторные локации и огромные лабиринты пещер и комнат пытаются создать ощущение большого и открытого мира, но выход из них всегда один. И это скорее даже плюс. В большинстве случаев понятно, какой путь правильный, и можно развернуться и доизучать локацию в поисках ништяков и тайных комнат, коих в игре не мало.\u003C/p\u003E\u003Cp\u003EПо большей части путешествовать придётся по тёмным пещерам, дремучим лесам и болотам, да различным шахтам. Но картинка выглядит сочно и кросочно, обладает своим стилем и не лишена красивых пейзажей, благодаря чему создаётся атмосфера сказочного приключения.\u003C/p\u003E"
+      },
+      "block": "paragraph",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "images": [
+          {
+            "id": 55559,
+            "url": "/live/m/picture/a8b62529dc494db6af6168700671e021.png",
+            "width": 1024,
+            "height": 768,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55549,
+            "url": "/live/m/picture/1d19b6a387d1462a8c5f32fb4757c9d0.png",
+            "width": 1024,
+            "height": 768,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55550,
+            "url": "/live/m/picture/ad8e7f27fe724a509550b7802b5ae4a9.png",
+            "width": 1024,
+            "height": 768,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55551,
+            "url": "/live/m/picture/83a0b82917844c7abd6dceac322027af.png",
+            "width": 1024,
+            "height": 768,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55552,
+            "url": "/live/m/picture/1142cea6023a445e9651918e7429230c.png",
+            "width": 1024,
+            "height": 768,
+            "preview": null,
+            "is_video": false
+          }
+        ]
+      },
+      "block": "gallery",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "content": "\u003Cp\u003EСтоит упомянуть, что в техническом плане проблем у меня не возникло. Скачал в Ориджине и запустил без танцев с бубном. Хоть в настройках и указано максимальное разрешение 1024х768, но игра благополучно растянулась на моём фулл ашди мониторе без косяков. По скриншотам, правда, это не особо заметно.\u003C/p\u003E"
+      },
+      "block": "paragraph",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "images": [
+          {
+            "id": 55557,
+            "url": "/live/m/picture/bd6ca1bd583d469faee8cf973514e4a0.png",
+            "width": 640,
+            "height": 480,
+            "caption": "Видел я один фильм, который начинался точно так же...",
+            "preview": null,
+            "is_video": false
+          }
+        ]
+      },
+      "block": "gallery",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "content": "\u003Cp\u003EЧто хочу сказать, подводя небольшой итог по «Ноксу», потраченного времени ничуть не жалею. Тут и ушло всего часов десять от силы. Десять теплых, приятных ностальгических часов. Из-за того, что Diablo 2 своей значимостью могла перебить вышедший в том же году Nox, многие могли его пропустить. Так что если вы не слышали об этой игре или слышали, но ещё не пробовали, и вам по нраву эпические фэнтезийные истории, то можете смело запускать. А теперь перейдём к основному блюду.\u003C/p\u003E"
+      },
+      "block": "paragraph",
+      "is_expanded": false
+    },
+    {
+      "json": {
+
+      },
+      "block": "divider",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "content": "\u003Ch2\u003EDungeon siege\u003C/h2\u003E\u003Cp\u003EМоя личная история длиной в двадцать лет. Из-за того, что компьютер у нас был на двоих с братом, времени поиграть у меня было немного. А чуть позже к нам попал диск с «Казаками», и к очереди на игровую сессию подключился ещё и батя. Стоит ли говорить, что у него был премиальный и внеочередной доступ к устройству? Благо он частенько пропадал на работе и не так уж часто подходил к компу. Но тем не менее времени на поиграть у меня выходило не так уж и много, а так как я был новичком в обращении с клавиатурой и мышью, игра давалась мне непросто. А в один несчастный день и вовсе случилась внеплановая переустановка винды с форматированием диска. В итоге дойти я смог лишь до второй главы, а игра покинула меня на долгое время, так как ни у кого из одноклассников не было данного диска.\u003C/p\u003E\u003Cp\u003EДо прихода в мою деревню интернета, а вместе с ним и Стима, пройдёт ещё много времени. Я успею поиграть во множество хороших игр, даже попробую вторую часть серии, но так же не пройду её из-за вылета на рабочий стол. Но всё это время буду хранить в сердечке память о той самой, первой и любимой.\u003C/p\u003E\u003Cp\u003EИ вот я на первом курсе универа. Дома стоит уже новый современный компьютер и только-только подключённый безлимитный интернет. От одногруппника узнаю про Стим и, на свою голову, про распродажи. И вот, как-то раз, на одной из новогодних акций я увидел бандл Dungeon Siege Collection. Долго не думая, тут же купил и установил и... Не смог заставить себя запустить её. А вдруг она не такая, какой я её помню? Или, что ещё хуже, вдруг я уже не тот? Ведь на тот момент, на дворе уже 2009-й к слову, я уже успел поиграть в кучу крутых игр. В общем, я так и не смог. До этого ивента.\u003C/p\u003E"
+      },
+      "block": "paragraph",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "uid": "1ysisxLSfsg",
+        "url": "https://youtu.be/1ysisxLSfsg",
+        "embed_type": "youtube"
+      },
+      "block": "embed",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "content": "\u003Cp\u003EИтак, первым делом при запуске игры меня встретила замечательная музыка за авторством Джереми Соула, это который писал саундтрек к «Древним Свиткам» и «Гарри Поттерам». Я просто сидел, слушал главное меню, и былые чувства сами вернулись. Мне стало понятно, всё-таки мы всё ещё те. И страх ушёл. Я создал персонажа, и понеслась.\u003C/p\u003E"
+      },
+      "block": "paragraph",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "images": [
+          {
+            "id": 55560,
+            "url": "/live/m/picture/588aff7c90194eeb81d92a9455dbec1a.jpg",
+            "width": 800,
+            "height": 600,
+            "caption": "",
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55561,
+            "url": "/live/m/picture/2e957dee2cc241cc9398b985207d02d1.jpg",
+            "width": 1920,
+            "height": 1080,
+            "caption": "Классика",
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55562,
+            "url": "/live/m/picture/307a99a7cae042d088b6895f6198945e.jpg",
+            "width": 1920,
+            "height": 1080,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55563,
+            "url": "/live/m/picture/5d642a36dace4c389ea150d830ae87cd.jpg",
+            "width": 1920,
+            "height": 1080,
+            "caption": "Эй, девочка! Почему одна? Щас будет 2! (максимум 8, кстати)",
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55564,
+            "url": "/live/m/picture/3870bce3af034061b3907adeca024aab.jpg",
+            "width": 1920,
+            "height": 1080,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55581,
+            "url": "/live/m/picture/c2b5fbdf776b4aaf9c6dd75608a1e064.jpg",
+            "width": 1920,
+            "height": 1080,
+            "caption": "Казалось бы, при чём здесь Тарков?",
+            "preview": null,
+            "is_video": false
+          }
+        ]
+      },
+      "block": "gallery",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "content": "\u003Cp\u003EИграем мы за обычного фермера, пашем себе огород, никого не трогаем, и вдруг беда приходит к нам в дом. Старый друг, весь израненный добирается к нам с сообщением, что внезапно взбунтовались краги, местный аналог орков, и начали всех мочить. Он просит нас отправиться в соседний город Стоунбридж, чтобы разыскать там одного знакомого и доложить обстановку. Забегая вперёд, скажу, что тот знакомый пошлёт нас к другому, тот к третьему и так далее, пока в итоге мы самостоятельно не искореним великое зло. В общем, ещё один незамысловатый сюжет, что меня, как я уже говорил, вполне устраивает.\u003C/p\u003E\u003Cp\u003EИгра полностью оправдывает своё название. На пути нам встретятся древние катакомбы священнослужителей, всевозможные подземелья, ледяные пещеры, шахты дварфов, военные высокотехнологичные убежища гоблинов, кристальные пещеры. Все они разные, со своими типами врагов, которые в свою очередь тоже редко повторяются.\u003C/p\u003E\u003Cp\u003EНам противостоять будут как классические волки, пауки и скелеты, так и местные чудовища в виде вышеупомянутых крагов, скрабов — огромные плюющиеся жижей сороконожки, и мукос — полупауки-полумрази. Есть ещё зловещий народ Секов и их предводитель — тёмный лорд Гом. Поохотиться есть на кого.\u003C/p\u003E"
+      },
+      "block": "paragraph",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "images": [
+          {
+            "id": 55565,
+            "url": "/live/m/picture/52ca3d9f5be245078b9c87c8d3bfba5f.jpg",
+            "width": 1920,
+            "height": 1080,
+            "caption": "Наш путь лежит через Морию",
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55566,
+            "url": "/live/m/picture/1200cbb7f7004f3a88eda6c46a88761f.jpg",
+            "width": 1920,
+            "height": 1080,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55567,
+            "url": "/live/m/picture/73d3d9569b6149ccac3f5d81742e81a3.jpg",
+            "width": 1920,
+            "height": 1080,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55568,
+            "url": "/live/m/picture/072b3fa653ce4d41b7c44fcf1a0c2f18.jpg",
+            "width": 1920,
+            "height": 1080,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55570,
+            "url": "/live/m/picture/5169436b936d47bdbc94e89569a86ecb.jpg",
+            "width": 1920,
+            "height": 1080,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55569,
+            "url": "/live/m/picture/5f0b3e5f16ac4a5cbbb18ec430048140.jpg",
+            "width": 1920,
+            "height": 1080,
+            "preview": null,
+            "is_video": false
+          }
+        ]
+      },
+      "block": "gallery",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "content": "\u003Cp\u003EDungeon Siege — это такая партийная экшн РПГ. В своём приключении мы повстречаем множество соратников. Одни готовы присоединиться к нам за спасибо, чтобы объединить усилия для выполнения великой миссии. Другие же попросят кругленькую сумму за то, чтобы пополнить наши ряды. Дескать накопилось долгов, а платить нечем, ты за меня рассчитываешься, а я за тебя вписываюсь. А еще можно обзавестись грузовой Плотвой, которая носит лут за троих человек. Ходят слухи, что игру можно пройти в одиночку, но что-то я слабо себе это представляю.\u003C/p\u003E\u003Cp\u003EПодконтрольных персонажей можно развить в четыре класса: ближний боец, дальний, маг природы и боевой маг. Прокачка навыков происходит таким образом, что параметры увеличиваются от того, каким оружием/магией мы пользуемся. То есть стреляем из лука, получаем очки дальнего боя и ловкость, колдуем магией — очко школы магии и интеллект и так далее. Есть в таком подходе минус. Очки сбросить нельзя, а чтобы переучиться, нужно стукать по мобам, которые в свою очередь не респаунятся. Таким образом приходится прокачивать какое-то одно направление.\u003C/p\u003E\u003Cp\u003EИсходя из личного опыта, боёвка в игре по большей части происходит в реальном времени. Существует и активная пауза, во время которой можно поменять тип оружия или выпить банку с ХП и МП, например, или выбрать другую цель, но я пользовался ей редко, в основном на противниках, которые используют атаки по области. Также можно задать построение и поведение персонажей в бою. Например, выбрать оборонительную тактику или вырезать всех вражин в пределах видимости. \u003C/p\u003E"
+      },
+      "block": "paragraph",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "images": [
+          {
+            "id": 55571,
+            "url": "/live/m/picture/c292df18a8c5466b8e5f82f3197e4c1e.jpg",
+            "width": 1920,
+            "height": 1080,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55572,
+            "url": "/live/m/picture/cf8f4758f3614d67ba4514145069f9a0.jpg",
+            "width": 1920,
+            "height": 1080,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55573,
+            "url": "/live/m/picture/b205fd762eda4a48aead0a09d9cb62e9.jpg",
+            "width": 1920,
+            "height": 1080,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55574,
+            "url": "/live/m/picture/14906b16725f4211bd116301fc3d8b36.jpg",
+            "width": 1920,
+            "height": 1080,
+            "preview": null,
+            "is_video": false
+          }
+        ]
+      },
+      "block": "gallery",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "content": "\u003Cp\u003EНесмотря на простоватую графику, игра порой выдаёт красивые, запоминающиеся пейзажи. Чего только стоит выгровированный в пещере портрет Лостмэна или лагерь ККнайтов с кострищем на болотах. Ну кругом родные и знакомые места.\u003C/p\u003E\u003Cp\u003EКстати, о местах. В какой-то момент поймал себя на мысли, что путь героев географически повторяет путь братства кольца из романов Толкина. Начинается всё в небольшой деревушке, продолжается в соседнем городке, где мы встречаем первых спутников, ну и дальше по списку: подземелья дварфов, снежные горы, топкие болота, пустыня мёртвых, даже огромный замок. А заканчивается история в вулканических недрах. Была ещё пещера с огромным драконом, так что и немножко «Хоббита» можно приплести.\u003C/p\u003E\u003Cp\u003EИграя, я настолько проникся воспоминаниями и ностальгией, что не усмотрел никаких минусов для себя. Ну разве что было одно душное подземелье с гоблинами и их непробиваемыми танками, но я больше склоняюсь к тому, что где-то накосячил с прокачкой или собрал недостаточно крутой шмот. Кстати о нём, где-то у меня потерялся скриншот с РГБТ арбалетом, но просто имейте в виду, что уже в то время была экипировка для настоящих геймеров.\u003C/p\u003E"
+      },
+      "block": "paragraph",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "images": [
+          {
+            "id": 55575,
+            "url": "/live/m/picture/8e23424796d540e5ad53bfbec5a701fe.jpg",
+            "width": 1920,
+            "height": 1080,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55576,
+            "url": "/live/m/picture/6fe06662f1a34b32bb6ec82385668aef.jpg",
+            "width": 1920,
+            "height": 1080,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55578,
+            "url": "/live/m/picture/347d9adcbbb14b679adec09fb6796410.jpg",
+            "width": 1920,
+            "height": 1080,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55579,
+            "url": "/live/m/picture/4b2aa1801c554f64ae91dfe5f2724523.jpg",
+            "width": 1920,
+            "height": 1080,
+            "preview": null,
+            "is_video": false
+          },
+          {
+            "id": 55580,
+            "url": "/live/m/picture/2c47d381a4844a699f62b39c71ba967a.jpg",
+            "width": 1920,
+            "height": 1080,
+            "preview": null,
+            "is_video": false
+          }
+        ]
+      },
+      "block": "gallery",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "content": "\u003Cp\u003EМой вердикт такой: Dungeon Siege всё ещё неплохо играется, остаётся одной из моих любимых РПГ, да и в целом из любимых игр. Она пропитана атмосферой приключения и, благодаря звуковому сопровождению Джереми Соула, волшебства, поэтому в ней просто приятно находиться. При каждом удобном случае буду рекомендовать её к ознакомлению.\u003C/p\u003E"
+      },
+      "block": "paragraph",
+      "is_expanded": false
+    },
+    {
+      "json": {
+
+      },
+      "block": "divider",
+      "is_expanded": false
+    },
+    {
+      "json": {
+        "content": "\u003Cp\u003EНемного грустно осознавать, что подобных чувств к какой-нибудь другой игре скорее всего уже никогда не будет. Но и одновременно радостно, что всё у меня хорошо с этой. Большое спасибо организаторам за мероприятие. Возвращайтесь иногда к старым играм, они ведь томятся там, ждут. \u003C/p\u003E"
+      },
+      "block": "paragraph",
+      "is_expanded": false
+    }
+  ],
+  "document": {
+
+  },
+  "comments": [
+    {
+      "is_deleted": false,
+      "is_edit_mode": false,
+      "id": 8442,
+      "user": {
+        "id": 220,
+        "username": "DemoniCalM",
+        "avatar": {
+          "tiny": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/220/avatar/07627cbca9e84a3fbb680494a87d6ba2.png",
+          "small": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/220/avatar/3aacd785b22c4428a76e7edc815ac33e.png",
+          "big": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/220/avatar/d8c2a6d8f9ef4ee094c70797e1476ef9.png"
+        },
+        "background_url": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/220/background/c471bb662a2747118af9b8e0d8922493.gif",
+        "is_supporter": false,
+        "datetime_last_seen": "2026-10-19T18:05:19.809480+03:00"
+      },
+      "depth": 1,
+      "is_images_hidden": false,
+      "datetime_created": "2022-03-05T23:40:42.366922+03:00",
+      "text": "\u003Cp\u003EОптом насыпал) \u003C/p\u003E\u003Cp\u003EСпасибо, было приятно почитать, вспомнил свои забеги в эти игры) \u003C/p\u003E",
+      "images": [],
+      "embeds": [],
+      "respond_to_comment": null,
+      "is_pwnd": false,
+      "is_ownd": false,
+      "is_ignored": false,
+      "pwnd": 1,
+      "ownd": 0,
+      "children": [
+        {
+          "is_deleted": false,
+          "is_edit_mode": false,
+          "id": 8444,
+          "user": {
+            "id": 20,
+            "username": "Panda Shiren",
+            "avatar": {
+              "tiny": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/avatar/8855cb69604b4dd0aa30339e0efda6ff.jpg",
+              "small": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/avatar/4f96b72de6064afd861db8d9867dc039.jpg",
+              "big": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/avatar/01303fdb032f421d9f07e08af2e591c0.jpg"
+            },
+            "background_url": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/background/b62eaea921c342638400f99e479de81c.gif",
+            "is_supporter": null,
+            "datetime_last_seen": "2026-10-19T19:46:02.930927+03:00"
+          },
+          "depth": 2,
+          "is_images_hidden": false,
+          "datetime_created": "2022-03-05T23:45:51.867318+03:00",
+          "text": "\u003Cp\u003E\u003Cscroll-link :to=\"{ name: 'user', params: { id: 220 } }\" class=\"mention-item\" data-id=\"220\" data-username=\"DemoniCalM\"\u003EDemoniCalM\u003C/scroll-link\u003E, тебе спасибо. Было приятно поиграть +) \u003C/p\u003E",
+          "images": [],
+          "embeds": [],
+          "respond_to_comment": {
+            "id": 8442,
+            "user": {
+              "id": 220,
+              "username": "DemoniCalM",
+              "avatar": {
+                "tiny": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/220/avatar/07627cbca9e84a3fbb680494a87d6ba2.png",
+                "small": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/220/avatar/3aacd785b22c4428a76e7edc815ac33e.png",
+                "big": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/220/avatar/d8c2a6d8f9ef4ee094c70797e1476ef9.png"
+              },
+              "background_url": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/220/background/c471bb662a2747118af9b8e0d8922493.gif",
+              "is_supporter": false,
+              "datetime_last_seen": "2026-10-19T18:05:19.809480+03:00"
+            },
+            "text": "Оптом насыпал) Спасибо, было приятно почитать, вспомнил свои забеги в эти игры)",
+            "depth": 1,
+            "datetime_created": "2022-03-05T23:40:42.366922+03:00"
+          },
+          "is_pwnd": false,
+          "is_ownd": false,
+          "is_ignored": false,
+          "pwnd": 0,
+          "ownd": 0,
+          "children": []
+        }
+      ]
+    },
+    {
+      "is_deleted": false,
+      "is_edit_mode": false,
+      "id": 8448,
+      "user": {
+        "id": 50,
+        "username": "inpwbusina",
+        "avatar": {
+          "tiny": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/50/avatar/c9d40d80414043a59c5c88dba629d972.jpg",
+          "small": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/50/avatar/5fb40d907e1f44ccbb9fb9a859b72093.jpg",
+          "big": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/50/avatar/b092c4f9ea964402a4785ead663dd5bb.jpg"
+        },
+        "background_url": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/50/background/4e2b3c3612ef400796865c9233b97b66.jpeg",
+        "is_supporter": null,
+        "datetime_last_seen": "2026-10-19T19:37:40.069949+03:00"
+      },
+      "depth": 1,
+      "is_images_hidden": false,
+      "datetime_created": "2022-03-06T04:01:41.391788+03:00",
+      "text": "\u003Cp\u003EТак вот почему ты ее тогда в Риддлере загадывал!\u003C/p\u003E",
+      "images": [],
+      "embeds": [],
+      "respond_to_comment": null,
+      "is_pwnd": false,
+      "is_ownd": false,
+      "is_ignored": false,
+      "pwnd": 0,
+      "ownd": 0,
+      "children": [
+        {
+          "is_deleted": false,
+          "is_edit_mode": false,
+          "id": 8449,
+          "user": {
+            "id": 20,
+            "username": "Panda Shiren",
+            "avatar": {
+              "tiny": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/avatar/8855cb69604b4dd0aa30339e0efda6ff.jpg",
+              "small": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/avatar/4f96b72de6064afd861db8d9867dc039.jpg",
+              "big": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/avatar/01303fdb032f421d9f07e08af2e591c0.jpg"
+            },
+            "background_url": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/background/b62eaea921c342638400f99e479de81c.gif",
+            "is_supporter": null,
+            "datetime_last_seen": "2026-10-19T19:46:02.930927+03:00"
+          },
+          "depth": 2,
+          "is_images_hidden": false,
+          "datetime_created": "2022-03-06T04:49:45.773224+03:00",
+          "text": "\u003Cp\u003E\u003Cscroll-link :to=\"{ name: 'user', params: { id: 50 } }\" class=\"mention-item\" data-id=\"50\" data-username=\"inpwbusina\"\u003Einpwbusina\u003C/scroll-link\u003E, именно +) \u003C/p\u003E",
+          "images": [],
+          "embeds": [],
+          "respond_to_comment": {
+            "id": 8448,
+            "user": {
+              "id": 50,
+              "username": "inpwbusina",
+              "avatar": {
+                "tiny": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/50/avatar/c9d40d80414043a59c5c88dba629d972.jpg",
+                "small": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/50/avatar/5fb40d907e1f44ccbb9fb9a859b72093.jpg",
+                "big": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/50/avatar/b092c4f9ea964402a4785ead663dd5bb.jpg"
+              },
+              "background_url": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/50/background/4e2b3c3612ef400796865c9233b97b66.jpeg",
+              "is_supporter": null,
+              "datetime_last_seen": "2026-10-19T19:37:40.069949+03:00"
+            },
+            "text": "Так вот почему ты ее тогда в Риддлере загадывал!",
+            "depth": 1,
+            "datetime_created": "2022-03-06T04:01:41.391788+03:00"
+          },
+          "is_pwnd": false,
+          "is_ownd": false,
+          "is_ignored": false,
+          "pwnd": 0,
+          "ownd": 0,
+          "children": []
+        }
+      ]
+    },
+    {
+      "is_deleted": false,
+      "is_edit_mode": false,
+      "id": 8450,
+      "user": {
+        "id": 1,
+        "username": "Береза",
+        "avatar": {
+          "tiny": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/1/avatar/85fab9977b7b4338a657929201039326.jpg",
+          "small": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/1/avatar/e7a233db6fff47928edd0e193904fa56.jpg",
+          "big": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/1/avatar/fc0c13b915d44c3e8541620434a19136.jpg"
+        },
+        "background_url": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/1/background/c3d3beeb9d8e41a3aa9872088b10e80c.jpg",
+        "is_supporter": null,
+        "datetime_last_seen": "2026-10-19T19:46:15.276517+03:00"
+      },
+      "depth": 1,
+      "is_images_hidden": false,
+      "datetime_created": "2022-03-06T11:18:58.984163+03:00",
+      "text": "\u003Cp\u003EШикарный текст. А в Dungeon Siege боевка как в диабле или пошаговая? Я этот момент немношко не понял. Nox выглядит максимально интересно, будет во что ворваться после прохождения всей современной хероты. Спасибо за участие в ивенте :) \u003C/p\u003E",
+      "images": [],
+      "embeds": [],
+      "respond_to_comment": null,
+      "is_pwnd": false,
+      "is_ownd": false,
+      "is_ignored": false,
+      "pwnd": 1,
+      "ownd": 0,
+      "children": [
+        {
+          "is_deleted": false,
+          "is_edit_mode": false,
+          "id": 8458,
+          "user": {
+            "id": 20,
+            "username": "Panda Shiren",
+            "avatar": {
+              "tiny": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/avatar/8855cb69604b4dd0aa30339e0efda6ff.jpg",
+              "small": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/avatar/4f96b72de6064afd861db8d9867dc039.jpg",
+              "big": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/avatar/01303fdb032f421d9f07e08af2e591c0.jpg"
+            },
+            "background_url": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/background/b62eaea921c342638400f99e479de81c.gif",
+            "is_supporter": null,
+            "datetime_last_seen": "2026-10-19T19:46:02.930927+03:00"
+          },
+          "depth": 2,
+          "is_images_hidden": false,
+          "datetime_created": "2022-03-06T13:01:08.034481+03:00",
+          "text": "\u003Cp\u003E\u003Cscroll-link :to=\"{ name: 'user', params: { id: 1 } }\" class=\"mention-item\" data-id=\"1\" data-username=\"xelblch24\"\u003Exelblch24\u003C/scroll-link\u003E, как у меня это заведено, время поджимало, поэтому чуть не успел +) Боёвка скорее с активной паузой, но я ей пользовался только на определённом типе врагов. Всё остальное время в рилтайме бегал. Как объявится победитель, дополню абзацик\u003C/p\u003E",
+          "images": [],
+          "embeds": [],
+          "respond_to_comment": {
+            "id": 8450,
+            "user": {
+              "id": 1,
+              "username": "Береза",
+              "avatar": {
+                "tiny": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/1/avatar/85fab9977b7b4338a657929201039326.jpg",
+                "small": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/1/avatar/e7a233db6fff47928edd0e193904fa56.jpg",
+                "big": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/1/avatar/fc0c13b915d44c3e8541620434a19136.jpg"
+              },
+              "background_url": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/1/background/c3d3beeb9d8e41a3aa9872088b10e80c.jpg",
+              "is_supporter": null,
+              "datetime_last_seen": "2026-10-19T19:46:15.276517+03:00"
+            },
+            "text": "Шикарный текст. А в Dungeon Siege боевка как в диабле или пошаговая? Я этот момент немношко не понял. Nox выглядит максимально интересно, будет во чт…",
+            "depth": 1,
+            "datetime_created": "2022-03-06T11:18:58.984163+03:00"
+          },
+          "is_pwnd": false,
+          "is_ownd": false,
+          "is_ignored": false,
+          "pwnd": 0,
+          "ownd": 0,
+          "children": [
+            {
+              "is_deleted": false,
+              "is_edit_mode": false,
+              "id": 8459,
+              "user": {
+                "id": 1,
+                "username": "Береза",
+                "avatar": {
+                  "tiny": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/1/avatar/85fab9977b7b4338a657929201039326.jpg",
+                  "small": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/1/avatar/e7a233db6fff47928edd0e193904fa56.jpg",
+                  "big": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/1/avatar/fc0c13b915d44c3e8541620434a19136.jpg"
+                },
+                "background_url": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/1/background/c3d3beeb9d8e41a3aa9872088b10e80c.jpg",
+                "is_supporter": null,
+                "datetime_last_seen": "2026-10-19T19:46:15.276517+03:00"
+              },
+              "depth": 3,
+              "is_images_hidden": false,
+              "datetime_created": "2022-03-06T13:03:03.544876+03:00",
+              "text": "\u003Cp\u003E\u003Cscroll-link :to=\"{ name: 'user', params: { id: 20 } }\" class=\"mention-item\" data-id=\"20\" data-username=\"Panda Shiren\"\u003EPanda Shiren\u003C/scroll-link\u003E, дополняй. мы уже определились и \u003Cscroll-link :to=\"{ name: 'user', params: { id: 220 } }\" class=\"mention-item\" data-id=\"220\" data-username=\"DemoniCalM\"\u003EDemoniCalM\u003C/scroll-link\u003E готовит финальный пост\u003C/p\u003E",
+              "images": [],
+              "embeds": [],
+              "respond_to_comment": {
+                "id": 8458,
+                "user": {
+                  "id": 20,
+                  "username": "Panda Shiren",
+                  "avatar": {
+                    "tiny": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/avatar/8855cb69604b4dd0aa30339e0efda6ff.jpg",
+                    "small": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/avatar/4f96b72de6064afd861db8d9867dc039.jpg",
+                    "big": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/avatar/01303fdb032f421d9f07e08af2e591c0.jpg"
+                  },
+                  "background_url": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/20/background/b62eaea921c342638400f99e479de81c.gif",
+                  "is_supporter": null,
+                  "datetime_last_seen": "2026-10-19T19:46:02.930927+03:00"
+                },
+                "text": "xelblch24, как у меня это заведено, время поджимало, поэтому чуть не успел +) Боёвка скорее с активной паузой, но я ей пользовался только на определё…",
+                "depth": 2,
+                "datetime_created": "2022-03-06T13:01:08.034481+03:00"
+              },
+              "is_pwnd": false,
+              "is_ownd": false,
+              "is_ignored": false,
+              "pwnd": 0,
+              "ownd": 0,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "is_deleted": false,
+      "is_edit_mode": false,
+      "id": 8484,
+      "user": {
+        "id": 26,
+        "username": "RedGeneral28",
+        "avatar": {
+          "tiny": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/26/avatar/765a94446b2d43be852bdefe01e65315.jpeg",
+          "small": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/26/avatar/765a94446b2d43be852bdefe01e65315.jpeg",
+          "big": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/26/avatar/765a94446b2d43be852bdefe01e65315.jpeg"
+        },
+        "background_url": "https://kknights.s3.eu-central-003.backblazeb2.com/live/m/user/26/background/9a38cee0a7744f29ba8944e1826bbcf9.png",
+        "is_supporter": null,
+        "datetime_last_seen": "2026-10-03T04:38:21.204035+03:00"
+      },
+      "depth": 1,
+      "is_images_hidden": false,
+      "datetime_created": "2022-03-07T10:04:24.718867+03:00",
+      "text": "\u003Cp\u003EКайфовый текст \u003C/p\u003E",
+      "images": [],
+      "embeds": [],
+      "respond_to_comment": null,
+      "is_pwnd": false,
+      "is_ownd": false,
+      "is_ignored": false,
+      "pwnd": 2,
+      "ownd": 0,
+      "children": []
+    }
+  ],
+  "is_pwnd": false,
+  "pwnd": 14,
+  "is_ownd": false,
+  "ownd": 0,
+  "views_count": 1391,
+  "datetime_published": "2022-03-05T23:23:53.741119+03:00",
+  "is_longread": true,
+  "is_comments_disabled": false,
+  "is_pinned": false,
+  "is_published": true,
+  "is_new_revision_available": false
+}

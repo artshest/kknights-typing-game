@@ -152,9 +152,9 @@ RectTransform:
   - {fileID: 1414430721}
   m_Father: {fileID: 1468447172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 608.27893, y: -50}
   m_SizeDelta: {x: 178.2632, y: 57.1265}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &115425970
@@ -348,9 +348,9 @@ RectTransform:
   - {fileID: 2023449723}
   m_Father: {fileID: 1468447172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 151.93346, y: -50}
   m_SizeDelta: {x: 303.8669, y: 57.1265}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &330585543
@@ -536,6 +536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TypingFacade
   _providerFactory: {fileID: 115425972}
   _typingView: {fileID: 1131700829}
+  _replaceYo: 1
 --- !u!1 &483733534
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,9 +707,9 @@ RectTransform:
   - {fileID: 483733535}
   m_Father: {fileID: 1468447172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 411.5071, y: -50}
   m_SizeDelta: {x: 195.2804, y: 57.1265}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &708154895
