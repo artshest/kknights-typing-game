@@ -6,6 +6,7 @@ A typing trainer built in Unity, with a clean layered architecture designed to g
 ![C#](https://img.shields.io/badge/Language-C%23-512BD4)
 ![Platforms](https://img.shields.io/badge/Platforms-WebGL%20%7C%20Windows-blue)
 ![Architecture](https://img.shields.io/badge/Architecture-Clean%20%2B%20MVVM-6f42c1)
+![Tests](https://img.shields.io/badge/Tests-NUnit%20EditMode-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 **[English](#english) | [Русский](#russian)**
@@ -36,8 +37,9 @@ The project is at the **MVP stage** (training mode) and targets **WebGL and Wind
 - **Full keystroke log**: every keystroke (position, expected and typed character, timestamp) is recorded, which makes detailed analytics and replays possible later.
 - **Text sources**: a predefined text, or an article from kknights.com loaded through the site's API. The source is selected in the Inspector.
 - **Site content parser** that supports both formats of the site's editor: HTML blocks and a ProseMirror/TipTap document tree.
-- **Text normalization**: typographic quotes, dashes and ellipses are converted to ASCII; line breaks become spaces; untypeable characters are removed; `ё → е` is optional.
-- **Keyboard hot-plug**: input survives the keyboard being disconnected and reconnected.
+- **Text normalization**: decomposed Unicode letters are composed (NFC), typographic quotes, dashes and ellipses are converted to ASCII; line breaks become spaces; untypeable characters are removed; `ё → е` is optional.
+- **Keyboard hot-plug**: input survives the keyboard being disconnected and reconnected; if the active keyboard is removed while another one is connected, input switches to it.
+- **Unit tests** for the domain, the site post parser and keyboard input (Unity Test Framework, EditMode).
 
 ## Tech Stack
 
@@ -50,7 +52,7 @@ The project is at the **MVP stage** (training mode) and targets **WebGL and Wind
 | **Input System** | Text input through `Keyboard.onTextInput`, which respects the OS keyboard layout |
 | **TextMeshPro** | Text rendering with rich-text highlighting of progress |
 | **Newtonsoft.Json** | Parsing the kknights.com API responses |
-| **Unity Test Framework** | Connected for the upcoming domain unit tests |
+| **Unity Test Framework** (NUnit) | EditMode tests for the domain and infrastructure; `InputTestFixture` from Input System emulates keyboards |
 
 ## Architecture
 
@@ -93,6 +95,7 @@ flowchart LR
 - **Strict normalization for blocking input.** With blocking input, a character the player can't type would stop them forever. So the text goes through a whitelist (printable ASCII, Cyrillic, `№`) after typographic characters are replaced.
 - **UniTask with cancellation tokens instead of coroutines.** Loading is cancelled through `destroyCancellationToken`. Cancellation is treated as a normal case and isn't logged as an error, and other exceptions are logged without crashing the scene. UniTask also runs on WebGL, which has no threads.
 - **Explicit resource ownership.** Whoever creates an object disposes of it: the facade disposes of the ViewModel, then the input. Subscriptions to long-lived publishers (`Keyboard`, static `InputSystem` events) are removed in `Dispose()`, not left to the finalizer, to avoid leaks between sessions.
+- **Tests mirror the layers.** Each tested layer has its own test assembly: `KK.Core.Tests` checks pure domain logic without the engine, and `KK.Infrastructure.Tests` checks adapters. The parser is tested on saved real responses from the site API (JSON fixtures), and `TextInputHandler` on virtual keyboards via `InputTestFixture`, including disconnect and reconnect. Test assemblies are Editor-only, so they never get into a build.
 - **WebGL constraints are designed in up front.** No `Task.Run`, `Task.Delay` or `ConfigureAwait(false)`. Networking is being migrated from `HttpClient`, which doesn't work in the browser, to `UnityWebRequest`.
 
 ## Project Structure
@@ -112,6 +115,10 @@ Assets/Scripts/
 │   └── Timing/       UnityClock
 ├── Presentation/     KK.Presentation — TypingViewModel, TypingView
 └── Bootstrap/        KK.Bootstrap — TypingFacade, provider factory, custom editor
+
+Assets/Tests/
+├── KK.Core.Tests/            TypingSession, StatsCalculator, Keystroke, TextNormalizer
+└── KK.Infrastructure.Tests/  KKnightsPostParser (JSON fixtures), TextInputHandler
 ```
 
 ## Getting Started
@@ -122,6 +129,12 @@ Assets/Scripts/
 2. Open the `Assets/Scenes/SampleScene.unity` scene.
 3. On the `TypingTextProviderFactory` component, select a text source: a predefined text, or a kknights.com API URL.
 4. Press **Play** and start typing.
+
+**Tests:** open **Window → General → Test Runner**, the **EditMode** tab, and press **Run All**. Or from the command line:
+
+```
+Unity.exe -batchmode -projectPath . -runTests -testPlatform EditMode -testResults results.xml
+```
 
 > The article-by-URL mode currently uses `HttpClient` and works in the Editor and on Windows. WebGL support for it is pending the migration to `UnityWebRequest`.
 
@@ -163,8 +176,9 @@ Keyboard Knights — игра-тренажёр слепой печати: игр
 - **Полный журнал нажатий**: записывается каждое нажатие (позиция, ожидаемый и введённый символ, время). Это задел для детальной аналитики и повторов.
 - **Источники текста**: заранее заданный текст или статья с kknights.com, загружаемая через API сайта. Источник выбирается в инспекторе.
 - **Парсер контента сайта**, поддерживающий оба формата редактора: HTML-блоки и дерево документа ProseMirror/TipTap.
-- **Нормализация текста**: типографские кавычки, тире и многоточия приводятся к ASCII, переводы строк становятся пробелами, ненабираемые символы удаляются, замена `ё → е` опциональна.
-- **Переподключение клавиатуры**: ввод продолжает работать после отключения и повторного подключения клавиатуры.
+- **Нормализация текста**: разложенные Unicode-буквы собираются (NFC), типографские кавычки, тире и многоточия приводятся к ASCII, переводы строк становятся пробелами, ненабираемые символы удаляются, замена `ё → е` опциональна.
+- **Переподключение клавиатуры**: ввод продолжает работать после отключения и повторного подключения клавиатуры; если активную клавиатуру отключили, а подключена другая, ввод переключается на неё.
+- **Unit-тесты** домена, парсера постов сайта и ввода с клавиатуры (Unity Test Framework, EditMode).
 
 ## Стек технологий
 
@@ -177,7 +191,7 @@ Keyboard Knights — игра-тренажёр слепой печати: игр
 | **Input System** | Ввод текста через `Keyboard.onTextInput` с учётом раскладки ОС |
 | **TextMeshPro** | Рендеринг текста с rich-text подсветкой прогресса |
 | **Newtonsoft.Json** | Разбор ответов API kknights.com |
-| **Unity Test Framework** | Подключён для будущих unit-тестов домена |
+| **Unity Test Framework** (NUnit) | EditMode-тесты домена и инфраструктуры; `InputTestFixture` из Input System эмулирует клавиатуры |
 
 ## Архитектура
 
@@ -220,6 +234,7 @@ flowchart LR
 - **Строгая нормализация под блокирующий ввод.** При блокирующем вводе символ, который игрок не может набрать, остановил бы его навсегда. Поэтому после замены типографских символов текст проходит белый список: печатные ASCII, кириллица и `№`.
 - **UniTask с токенами отмены вместо корутин.** Загрузка отменяется через `destroyCancellationToken`. Отмена считается штатной ситуацией и не логируется как ошибка, а остальные исключения логируются без падения сцены. Кроме того, UniTask работает в WebGL, где нет потоков.
 - **Явное владение ресурсами.** Кто создал объект, тот его и освобождает: фасад освобождает ViewModel, затем ввод. Подписки на долгоживущие издатели (`Keyboard`, статические события `InputSystem`) снимаются в `Dispose()`, а не оставляются финализатору, чтобы не было утечек между сессиями.
+- **Тесты повторяют слои.** У каждого тестируемого слоя своя тестовая сборка: `KK.Core.Tests` проверяет чистую логику домена без движка, `KK.Infrastructure.Tests` — адаптеры. Парсер тестируется на сохранённых реальных ответах API сайта (JSON-фикстуры), а `TextInputHandler` — на виртуальных клавиатурах через `InputTestFixture`, включая отключение и переподключение. Тестовые сборки собираются только для редактора и не попадают в билд.
 - **Ограничения WebGL учтены заранее.** Никаких `Task.Run`, `Task.Delay` и `ConfigureAwait(false)`. Сетевой код переводится с `HttpClient`, который не работает в браузере, на `UnityWebRequest`.
 
 ## Структура проекта
@@ -239,6 +254,10 @@ Assets/Scripts/
 │   └── Timing/       UnityClock
 ├── Presentation/     KK.Presentation — TypingViewModel, TypingView
 └── Bootstrap/        KK.Bootstrap — TypingFacade, фабрика провайдеров, кастомный редактор
+
+Assets/Tests/
+├── KK.Core.Tests/            TypingSession, StatsCalculator, Keystroke, TextNormalizer
+└── KK.Infrastructure.Tests/  KKnightsPostParser (JSON-фикстуры), TextInputHandler
 ```
 
 ## Запуск
@@ -249,6 +268,12 @@ Assets/Scripts/
 2. Откройте сцену `Assets/Scenes/SampleScene.unity`.
 3. В компоненте `TypingTextProviderFactory` выберите источник текста: заранее заданный текст или URL API kknights.com.
 4. Нажмите **Play** и начинайте печатать.
+
+**Тесты:** откройте **Window → General → Test Runner**, вкладку **EditMode**, и нажмите **Run All**. Или из командной строки:
+
+```
+Unity.exe -batchmode -projectPath . -runTests -testPlatform EditMode -testResults results.xml
+```
 
 > Режим статьи по URL пока использует `HttpClient` и работает в редакторе и на Windows. Поддержка этого режима в WebGL появится после перехода на `UnityWebRequest`.
 
