@@ -10,10 +10,12 @@ namespace KK.Presentation.Typing
     {
         public readonly string TypingText;
         public ReadOnlyReactiveProperty<int> CurrentIndex => _currentIndex;
+        public ReadOnlyReactiveProperty<bool> HasMistake => _hasMistake;
 
         public event Action<TypingResult> Completed;
 
         private readonly ReactiveProperty<int> _currentIndex = new(0);
+        private readonly ReactiveProperty<bool> _hasMistake = new(false);
         private readonly ITypingInput _typingInput;
         private readonly TypingSession _typingSession;
         private readonly IClock _clock;
@@ -35,8 +37,12 @@ namespace KK.Presentation.Typing
                 return;
 
             if (!keystroke.IsCorrect)
+            {
+                _hasMistake.Value = true;
                 return;
+            }
 
+            _hasMistake.Value = false;
             _currentIndex.Value = _typingSession.CurrentIndex;
 
             if (_typingSession.IsCompleted)
@@ -47,6 +53,7 @@ namespace KK.Presentation.Typing
         {
             _typingInput.OnTextInput -= HandleTextInput;
             _currentIndex.Dispose();
+            _hasMistake.Dispose();
         }
     }
 }
