@@ -11,11 +11,13 @@ namespace KK.Presentation.Typing
         public readonly string TypingText;
         public ReadOnlyReactiveProperty<int> CurrentIndex => _currentIndex;
         public ReadOnlyReactiveProperty<bool> HasMistake => _hasMistake;
+        public ReadOnlyReactiveProperty<TypingResult> Stats => _stats;
 
         public event Action<TypingResult> Completed;
 
         private readonly ReactiveProperty<int> _currentIndex = new(0);
         private readonly ReactiveProperty<bool> _hasMistake = new(false);
+        private readonly ReactiveProperty<TypingResult> _stats;
         private readonly ITypingInput _typingInput;
         private readonly TypingSession _typingSession;
         private readonly IClock _clock;
@@ -27,6 +29,7 @@ namespace KK.Presentation.Typing
             _clock = clock;
 
             TypingText = _typingSession.TypingText;
+            _stats = new ReactiveProperty<TypingResult>(_typingSession.GetResult(_clock.Now));
 
             _typingInput.OnTextInput += HandleTextInput;
         }
@@ -35,6 +38,8 @@ namespace KK.Presentation.Typing
         {
             if (!_typingSession.TryType(input, _clock.Now, out Keystroke keystroke))
                 return;
+
+            _stats.Value = _typingSession.GetResult(_clock.Now);
 
             if (!keystroke.IsCorrect)
             {
@@ -46,7 +51,12 @@ namespace KK.Presentation.Typing
             _currentIndex.Value = _typingSession.CurrentIndex;
 
             if (_typingSession.IsCompleted)
-                Completed?.Invoke(_typingSession.GetResult(_clock.Now));
+                Completed?.Invoke(_stats.Value);
+        }
+
+        public void Tick()
+        {
+            _stats.Value = _typingSession.GetResult(_clock.Now);
         }
 
         public void Dispose()
@@ -54,6 +64,7 @@ namespace KK.Presentation.Typing
             _typingInput.OnTextInput -= HandleTextInput;
             _currentIndex.Dispose();
             _hasMistake.Dispose();
+            _stats.Dispose();
         }
     }
 }

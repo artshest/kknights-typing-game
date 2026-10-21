@@ -35,6 +35,17 @@ namespace KK.Presentation.Tests.Typing
         }
 
         [Test]
+        public void Tick_AfterInput_UpdatesDuration()
+        {
+            _input.Type('a');
+
+            _clock.Advance(30);
+            _viewModel.Tick();
+
+            Assert.That(_viewModel.Stats.CurrentValue.Duration, Is.EqualTo(TimeSpan.FromSeconds(30)));
+        }
+
+        [Test]
         public void TextInput_CorrectCharAfterWrong_ResetsHasMistake()
         {
             _input.Type('x');
@@ -52,11 +63,34 @@ namespace KK.Presentation.Tests.Typing
         }
 
         [Test]
+        public void TextInput_WrongChar_IncreasesMistakes()
+        {
+            _input.Type('x');
+
+            Assert.That(_viewModel.Stats.CurrentValue.Mistakes, Is.EqualTo(1));
+        }
+
+        [Test]
         public void TextInput_WrongChar_SetsHasMistake()
         {
             _input.Type('x');
 
             Assert.That(_viewModel.HasMistake.CurrentValue, Is.True);
+        }
+
+        [Test]
+        public void Stats_BeforeInput_HasFullAccuracy()
+        {
+            Assert.That(_viewModel.Stats.CurrentValue.Accuracy, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Tick_BeforeInput_KeepsZeroDuration()
+        {
+            _clock.Advance(30);
+            _viewModel.Tick();
+
+            Assert.That(_viewModel.Stats.CurrentValue.Duration, Is.EqualTo(TimeSpan.Zero));
         }
 
         [Test]
