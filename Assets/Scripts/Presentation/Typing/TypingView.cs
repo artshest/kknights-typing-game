@@ -1,3 +1,4 @@
+using KK.Core.Typing;
 using R3;
 using TMPro;
 using UnityEngine;
@@ -30,7 +31,14 @@ namespace KK.Presentation.Typing
             _disposables = new DisposableBag();
 
             model.CurrentIndex.Subscribe(x => ConvertTextToView(model.TypingText, x)).AddTo(ref _disposables);
-            model.CurrentIndex.Subscribe(x => _total.text = x.ToString()).AddTo(ref _disposables);
+            model.Stats.Subscribe(ShowStats).AddTo(ref _disposables);
+        }
+
+        private void ShowStats(TypingResult stats)
+        {
+            _total.text = stats.CorrectCount.ToString();
+            _speed.text = stats.CharactersPerMinute.ToString("F0");
+            _totalMistakes.text = stats.Mistakes.ToString();
         }
 
         public void ConvertTextToView(string typingText, int currentIndex)

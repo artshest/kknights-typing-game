@@ -54,6 +54,12 @@ namespace KK.Bootstrap
             }
         }
 
+        private void Update()
+        {
+            // Скорость падает и во время паузы игрока, поэтому пересчёт идёт каждый кадр, а не только по нажатию
+            _typingViewModel?.Tick();
+        }
+
         // TODO: заменить экраном результатов (этап 4)
         private void HandleCompleted(TypingResult result)
         {
