@@ -19,9 +19,6 @@ namespace KK.Presentation.Typing
         [SerializeField]
         private TextMeshProUGUI _totalMistakes;
 
-        private const string AlphaTagOpen = "<color=\"white\"><alpha=#33>";
-        private const string AlphaTagClose = "<color=#FF9E4A><alpha=#FF>";
-
         private DisposableBag _disposables;
 
         public void Bind(TypingViewModel model)
@@ -30,7 +27,10 @@ namespace KK.Presentation.Typing
             _disposables.Dispose();
             _disposables = new DisposableBag();
 
-            model.CurrentIndex.Subscribe(x => ConvertTextToView(model.TypingText, x)).AddTo(ref _disposables);
+            model.CurrentIndex
+                .CombineLatest(model.HasMistake, (index, hasMistake) => TypingTextFormatter.Format(model.TypingText, index, hasMistake))
+                .Subscribe(text => _typingTextMesh.text = text)
+                .AddTo(ref _disposables);
             model.Stats.Subscribe(ShowStats).AddTo(ref _disposables);
         }
 
@@ -39,11 +39,6 @@ namespace KK.Presentation.Typing
             _total.text = stats.CorrectCount.ToString();
             _speed.text = stats.CharactersPerMinute.ToString("F0");
             _totalMistakes.text = stats.Mistakes.ToString();
-        }
-
-        public void ConvertTextToView(string typingText, int currentIndex)
-        {
-            _typingTextMesh.text = AlphaTagOpen + typingText.Insert(currentIndex, AlphaTagClose);
         }
 
         private void OnDestroy()

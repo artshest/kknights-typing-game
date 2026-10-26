@@ -6,7 +6,8 @@
         "UnityEditor.TestRunner",
         "KK.Presentation",
         "KK.App",
-        "KK.Core"
+        "KK.Core",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [
         "Editor"
