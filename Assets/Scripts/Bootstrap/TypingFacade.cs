@@ -5,6 +5,7 @@ using KK.Core.Texts;
 using KK.Core.Typing;
 using KK.Infrastructure.Input;
 using KK.Infrastructure.Timing;
+using KK.Presentation.Results;
 using KK.Presentation.Typing;
 using System;
 using UnityEngine;
@@ -17,6 +18,8 @@ namespace KK.Bootstrap
         private TypingTextProviderFactory _providerFactory;
         [SerializeField]
         private TypingView _typingView;
+        [SerializeField]
+        private ResultsView _resultsView;
 
         [Header("Normalization")]
         [SerializeField]
@@ -25,24 +28,26 @@ namespace KK.Bootstrap
         private bool _replaceYo = true;
 
         private ITypingInput _typingInput;
-        private TypingSession _typingSession;
+        private IClock _clock;
+        private string _text;
         private TypingViewModel _typingViewModel;
 
         private async void Start()
         {
+            _resultsView.Hide();
+            _resultsView.RestartRequested += HandleRestartRequested;
+
             try
             {
                 ITypingTextProvider provider = _providerFactory.Create();
                 string rawText = await provider.GetTextAsync(destroyCancellationToken);
-                string text = TextNormalizer.Normalize(rawText, new TextNormalizationOptions { ReplaceYo = _replaceYo });
+                _text = TextNormalizer.Normalize(rawText, new TextNormalizationOptions { ReplaceYo = _replaceYo });
 
+                // Ввод и часы живут, пока жив фасад; на каждый раунд пересоздаются только сессия и ViewModel
                 _typingInput = new TextInputHandler();
-                IClock clock = new UnityClock();
+                _clock = new UnityClock();
 
-                _typingSession = new TypingSession(text);
-                _typingViewModel = new TypingViewModel(_typingInput, _typingSession, clock);
-                _typingViewModel.Completed += HandleCompleted;
-                _typingView.Bind(_typingViewModel);
+                StartSession();
             }
             catch (OperationCanceledException)
             {
@@ -60,14 +65,29 @@ namespace KK.Bootstrap
             _typingViewModel?.Tick();
         }
 
-        // TODO: заменить экраном результатов (этап 4)
+        private void StartSession()
+        {
+            _typingViewModel = new TypingViewModel(_typingInput, new TypingSession(_text), _clock);
+            _typingViewModel.Completed += HandleCompleted;
+            _typingView.Bind(_typingViewModel);
+        }
+
         private void HandleCompleted(TypingResult result)
         {
-            Debug.Log($"Результат: {result}");
+            _resultsView.Show(result);
+        }
+
+        // TODO: новый текст вместо того же, когда появится TextLibrary (этап 5)
+        private void HandleRestartRequested()
+        {
+            _resultsView.Hide();
+            _typingViewModel.Dispose();
+            StartSession();
         }
 
         private void OnDestroy()
         {
+            _resultsView.RestartRequested -= HandleRestartRequested;
             _typingViewModel?.Dispose();
             _typingInput?.Dispose();
         }
