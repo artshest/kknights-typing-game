@@ -1,6 +1,7 @@
 using KK.App.Texts;
 using KK.Infrastructure.Texts;
 using KK.Infrastructure.Texts.KKnights;
+using KK.Infrastructure.Web;
 using System;
 using UnityEngine;
 
@@ -27,6 +28,7 @@ namespace KK.Bootstrap
         private TextLibrary _textLibrary;
 
         private ITypingTextProvider _cachedProvider;
+        private IWebTextLoader _webTextLoader;
 
         public ITypingTextProvider Create()
         {
@@ -38,7 +40,7 @@ namespace KK.Bootstrap
             _cachedProvider = _type switch
             {
                 ProviderType.PredefinedText => new PredefinedTextProvider(_predefinedText),
-                ProviderType.PredefinedArticleUrl => new UrlArticleTextProvider(_articleUrlApi),
+                ProviderType.PredefinedArticleUrl => new UrlArticleTextProvider(_articleUrlApi, CreateWebTextLoader()),
                 ProviderType.Library => new RandomTextProvider(_textLibrary.Texts, new System.Random()),
                 _ => throw new ArgumentOutOfRangeException(nameof(_type))
             };
@@ -46,10 +48,25 @@ namespace KK.Bootstrap
             return _cachedProvider;
         }
 
+        // Сайт принимает только TLS 1.3. В браузере рукопожатие делает он сам, а собственный TLS Unity
+        // версию 1.3 не поддерживает, поэтому в редакторе и Windows-сборке нужен HttpClient
+        private IWebTextLoader CreateWebTextLoader()
+        {
+#if UNITY_WEBGL && !UNITY_EDITOR
+            _webTextLoader = new UnityWebRequestTextLoader();
+#else
+            _webTextLoader = new HttpClientTextLoader();
+#endif
+            return _webTextLoader;
+        }
+
         private void OnDisable()
         {
-            if (_cachedProvider is IDisposable d) d.Dispose();
+            // Загрузчик создала фабрика, а не провайдер, поэтому и освобождает его фабрика
+            if (_cachedProvider is IDisposable provider) provider.Dispose();
+            if (_webTextLoader is IDisposable loader) loader.Dispose();
             _cachedProvider = null;
+            _webTextLoader = null;
         }
     }
 }
