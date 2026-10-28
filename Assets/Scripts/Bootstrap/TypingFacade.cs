@@ -1,4 +1,4 @@
-using KK.App.Texts;
+using Cysharp.Threading.Tasks;
 using KK.App.Timing;
 using KK.App.Typing;
 using KK.Core.Texts;
@@ -32,20 +32,31 @@ namespace KK.Bootstrap
         private string _text;
         private TypingViewModel _typingViewModel;
 
-        private async void Start()
+        private void Start()
         {
             _resultsView.Hide();
             _resultsView.RestartRequested += HandleRestartRequested;
+            _resultsView.NextTextRequested += HandleNextTextRequested;
 
+            // Ввод и часы живут, пока жив фасад; на каждый раунд пересоздаются только сессия и ViewModel
+            _typingInput = new TextInputHandler();
+            _clock = new UnityClock();
+
+            StartSessionWithNewTextAsync().Forget();
+        }
+
+        private void Update()
+        {
+            // Скорость падает и во время паузы игрока, поэтому пересчёт идёт каждый кадр, а не только по нажатию
+            _typingViewModel?.Tick();
+        }
+
+        private async UniTaskVoid StartSessionWithNewTextAsync()
+        {
             try
             {
-                ITypingTextProvider provider = _providerFactory.Create();
-                string rawText = await provider.GetTextAsync(destroyCancellationToken);
+                string rawText = await _providerFactory.Create().GetTextAsync(destroyCancellationToken);
                 _text = TextNormalizer.Normalize(rawText, new TextNormalizationOptions { ReplaceYo = _replaceYo });
-
-                // Ввод и часы живут, пока жив фасад; на каждый раунд пересоздаются только сессия и ViewModel
-                _typingInput = new TextInputHandler();
-                _clock = new UnityClock();
 
                 StartSession();
             }
@@ -59,12 +70,6 @@ namespace KK.Bootstrap
             }
         }
 
-        private void Update()
-        {
-            // Скорость падает и во время паузы игрока, поэтому пересчёт идёт каждый кадр, а не только по нажатию
-            _typingViewModel?.Tick();
-        }
-
         private void StartSession()
         {
             _typingViewModel = new TypingViewModel(_typingInput, new TypingSession(_text), _clock);
@@ -72,22 +77,35 @@ namespace KK.Bootstrap
             _typingView.Bind(_typingViewModel);
         }
 
+        private void EndSession()
+        {
+            _resultsView.Hide();
+            _typingViewModel.Dispose();
+            // Пока грузится новый текст, Update не должен трогать освобождённую ViewModel
+            _typingViewModel = null;
+        }
+
         private void HandleCompleted(TypingResult result)
         {
             _resultsView.Show(result);
         }
 
-        // TODO: новый текст вместо того же, когда появится TextLibrary (этап 5)
         private void HandleRestartRequested()
         {
-            _resultsView.Hide();
-            _typingViewModel.Dispose();
+            EndSession();
             StartSession();
+        }
+
+        private void HandleNextTextRequested()
+        {
+            EndSession();
+            StartSessionWithNewTextAsync().Forget();
         }
 
         private void OnDestroy()
         {
             _resultsView.RestartRequested -= HandleRestartRequested;
+            _resultsView.NextTextRequested -= HandleNextTextRequested;
             _typingViewModel?.Dispose();
             _typingInput?.Dispose();
         }

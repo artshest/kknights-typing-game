@@ -18,8 +18,11 @@ namespace KK.Presentation.Results
         private TextMeshProUGUI _duration;
         [SerializeField]
         private Button _restartButton;
+        [SerializeField]
+        private Button _nextTextButton;
 
         public event Action RestartRequested;
+        public event Action NextTextRequested;
 
         public void Show(TypingResult result)
         {
@@ -38,16 +41,23 @@ namespace KK.Presentation.Results
         private void OnEnable()
         {
             _restartButton.onClick.AddListener(HandleRestartClicked);
+            _nextTextButton.onClick.AddListener(HandleNextTextClicked);
         }
 
         private void OnDisable()
         {
             _restartButton.onClick.RemoveListener(HandleRestartClicked);
+            _nextTextButton.onClick.RemoveListener(HandleNextTextClicked);
         }
 
         private void HandleRestartClicked()
         {
             RestartRequested?.Invoke();
+        }
+
+        private void HandleNextTextClicked()
+        {
+            NextTextRequested?.Invoke();
         }
     }
 }

@@ -11,7 +11,8 @@ namespace KK.Bootstrap
         public enum ProviderType
         {
             PredefinedText,
-            PredefinedArticleUrl
+            PredefinedArticleUrl,
+            Library
         }
 
         [SerializeField]
@@ -22,6 +23,8 @@ namespace KK.Bootstrap
         private string _predefinedText;
         [SerializeField]
         private string _articleUrlApi;
+        [SerializeField]
+        private TextLibrary _textLibrary;
 
         private ITypingTextProvider _cachedProvider;
 
@@ -36,6 +39,7 @@ namespace KK.Bootstrap
             {
                 ProviderType.PredefinedText => new PredefinedTextProvider(_predefinedText),
                 ProviderType.PredefinedArticleUrl => new UrlArticleTextProvider(_articleUrlApi),
+                ProviderType.Library => new RandomTextProvider(_textLibrary.Texts, new System.Random()),
                 _ => throw new ArgumentOutOfRangeException(nameof(_type))
             };
 

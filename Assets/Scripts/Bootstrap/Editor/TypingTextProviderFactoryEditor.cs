@@ -25,6 +25,9 @@ namespace KK.Bootstrap.Editor
                 case TypingTextProviderFactory.ProviderType.PredefinedArticleUrl:
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("_articleUrlApi"));
                     break;
+                case TypingTextProviderFactory.ProviderType.Library:
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("_textLibrary"));
+                    break;
             }
 
             serializedObject.ApplyModifiedProperties();

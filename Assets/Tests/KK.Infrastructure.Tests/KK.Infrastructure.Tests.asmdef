@@ -6,6 +6,8 @@
         "UnityEditor.TestRunner",
         "KK.Infrastructure",
         "KK.App",
+        "KK.Core",
+        "UniTask",
         "Unity.InputSystem",
         "Unity.InputSystem.TestFramework"
     ],
