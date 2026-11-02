@@ -4,6 +4,7 @@ using KK.Infrastructure.Texts.KKnights;
 using KK.Infrastructure.Web;
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace KK.Bootstrap
 {
@@ -23,7 +24,9 @@ namespace KK.Bootstrap
         [TextArea(5, 10)]
         private string _predefinedText;
         [SerializeField]
-        private string _articleUrlApi;
+        [FormerlySerializedAs("_articleUrlApi")]
+        [Tooltip("Ссылка на статью kknights.com, например https://kknights.com/posts/5235-valor-mortis")]
+        private string _articleLink;
         [SerializeField]
         private TextLibrary _textLibrary;
 
@@ -40,7 +43,7 @@ namespace KK.Bootstrap
             _cachedProvider = _type switch
             {
                 ProviderType.PredefinedText => new PredefinedTextProvider(_predefinedText),
-                ProviderType.PredefinedArticleUrl => new UrlArticleTextProvider(_articleUrlApi, CreateWebTextLoader()),
+                ProviderType.PredefinedArticleUrl => new UrlArticleTextProvider(_articleLink, CreateWebTextLoader()),
                 ProviderType.Library => new RandomTextProvider(_textLibrary.Texts, new System.Random()),
                 _ => throw new ArgumentOutOfRangeException(nameof(_type))
             };

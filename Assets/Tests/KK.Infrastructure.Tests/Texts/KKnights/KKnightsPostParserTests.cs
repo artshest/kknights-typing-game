@@ -2,17 +2,11 @@ using System;
 using System.Linq;
 using KK.Infrastructure.Texts.KKnights;
 using NUnit.Framework;
-using UnityEditor;
-using UnityEngine;
 
 namespace KK.Infrastructure.Tests.Texts.KKnights
 {
     public class KKnightsPostParserTests
     {
-        private const string FixturesPath = "Assets/Tests/KK.Infrastructure.Tests/Texts/KKnights/Fixtures/";
-        private const string BlocksFixture = "1508-staroe-dobroe-fentezi.json";
-        private const string DocumentFixture = "post5235-valor-mortis.json";
-
         [TestCase(null)]
         [TestCase("")]
         public void Parse_EmptyJson_Throws(string json)
@@ -29,7 +23,7 @@ namespace KK.Infrastructure.Tests.Texts.KKnights
         [Test]
         public void Parse_BlocksFixture_ReadsTitleAndSlug()
         {
-            var post = KKnightsPostParser.Parse(LoadFixture(BlocksFixture));
+            var post = KKnightsPostParser.Parse(KKnightsFixtures.Load(KKnightsFixtures.Blocks));
 
             Assert.That(post.Title, Is.EqualTo("Старое & Доброе фэнтези"));
             Assert.That(post.Slug, Is.EqualTo("1508-staroe-dobroe-fentezi"));
@@ -38,7 +32,7 @@ namespace KK.Infrastructure.Tests.Texts.KKnights
         [Test]
         public void Parse_BlocksFixture_SplitsHtmlIntoParagraphs()
         {
-            var post = KKnightsPostParser.Parse(LoadFixture(BlocksFixture));
+            var post = KKnightsPostParser.Parse(KKnightsFixtures.Load(KKnightsFixtures.Blocks));
 
             Assert.That(post.Paragraphs[0], Does.StartWith("Для участия в активности"));
             Assert.That(post.Paragraphs[0], Does.EndWith("был открыт по-новому."));
@@ -49,7 +43,7 @@ namespace KK.Infrastructure.Tests.Texts.KKnights
         [Test]
         public void Parse_BlocksFixture_LeavesNoHtml()
         {
-            var post = KKnightsPostParser.Parse(LoadFixture(BlocksFixture));
+            var post = KKnightsPostParser.Parse(KKnightsFixtures.Load(KKnightsFixtures.Blocks));
 
             Assert.That(post.Paragraphs.Where(p => p.Contains('<') || p.Contains('>')), Is.Empty);
         }
@@ -57,7 +51,7 @@ namespace KK.Infrastructure.Tests.Texts.KKnights
         [Test]
         public void Parse_BlocksFixture_SkipsGalleriesAndEmbeds()
         {
-            var post = KKnightsPostParser.Parse(LoadFixture(BlocksFixture));
+            var post = KKnightsPostParser.Parse(KKnightsFixtures.Load(KKnightsFixtures.Blocks));
 
             Assert.That(post.Text, Does.Not.Contain("Ностальгией пахнет"));
             Assert.That(post.Text, Does.Not.Contain("youtu"));
@@ -66,7 +60,7 @@ namespace KK.Infrastructure.Tests.Texts.KKnights
         [Test]
         public void Parse_DocumentFixture_ReadsTitleAndSlug()
         {
-            var post = KKnightsPostParser.Parse(LoadFixture(DocumentFixture));
+            var post = KKnightsPostParser.Parse(KKnightsFixtures.Load(KKnightsFixtures.Document));
 
             Assert.That(post.Title, Is.EqualTo("Valor Mortis"));
             Assert.That(post.Slug, Is.EqualTo("5235-valor-mortis"));
@@ -75,7 +69,7 @@ namespace KK.Infrastructure.Tests.Texts.KKnights
         [Test]
         public void Parse_DocumentFixture_SplitsNodesIntoParagraphs()
         {
-            var post = KKnightsPostParser.Parse(LoadFixture(DocumentFixture));
+            var post = KKnightsPostParser.Parse(KKnightsFixtures.Load(KKnightsFixtures.Document));
 
             Assert.That(post.Paragraphs[0], Does.StartWith("Соулс-лайк от первого лица"));
             Assert.That(post.Paragraphs[1], Is.EqualTo("Сюжет"));
@@ -85,7 +79,7 @@ namespace KK.Infrastructure.Tests.Texts.KKnights
         [Test]
         public void Parse_DocumentFixture_SplitsOnHardBreak()
         {
-            var post = KKnightsPostParser.Parse(LoadFixture(DocumentFixture));
+            var post = KKnightsPostParser.Parse(KKnightsFixtures.Load(KKnightsFixtures.Document));
 
             int last = post.Paragraphs.Count - 1;
             Assert.That(post.Paragraphs[last], Does.StartWith("P.S. Хоспаде"));
@@ -95,7 +89,7 @@ namespace KK.Infrastructure.Tests.Texts.KKnights
         [Test]
         public void Parse_DocumentFixture_CollapsesSpaces()
         {
-            var post = KKnightsPostParser.Parse(LoadFixture(DocumentFixture));
+            var post = KKnightsPostParser.Parse(KKnightsFixtures.Load(KKnightsFixtures.Document));
 
             Assert.That(post.Text, Does.Contain("наблюдает тотальный"));
             Assert.That(post.Paragraphs.Where(p => p.Contains("  ") || p != p.Trim()), Is.Empty);
@@ -143,13 +137,6 @@ namespace KK.Infrastructure.Tests.Texts.KKnights
             var post = KKnightsPostParser.Parse(json);
 
             Assert.That(post.Paragraphs, Is.EqualTo(new[] { "раз", "два" }));
-        }
-
-        private static string LoadFixture(string fileName)
-        {
-            var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(FixturesPath + fileName);
-            Assert.That(asset, Is.Not.Null, $"Фикстура {fileName} не найдена");
-            return asset.text;
         }
     }
 }
