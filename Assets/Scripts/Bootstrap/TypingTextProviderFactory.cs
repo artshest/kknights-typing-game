@@ -32,6 +32,10 @@ namespace KK.Bootstrap
         [Tooltip("Длина фрагмента статьи в символах. Абзацы не режутся, поэтому фрагмент бывает короче минимума")]
         private TextFragmentOptions _fragmentOptions = new();
         [SerializeField]
+        [Min(1)]
+        [Tooltip("Сколько секунд ждать ответа сайта")]
+        private float _timeoutSeconds = 15;
+        [SerializeField]
         private TextLibrary _textLibrary;
 
         private ITypingTextProvider _cachedProvider;
@@ -60,12 +64,18 @@ namespace KK.Bootstrap
         // версию 1.3 не поддерживает, поэтому в редакторе и Windows-сборке нужен HttpClient
         private IWebTextLoader CreateWebTextLoader()
         {
+            // Если конструктор провайдера бросил (плохая ссылка), загрузчик уже создан, а провайдер не закэширован.
+            // Повтор не должен создавать второй HttpClient поверх неосвобождённого первого
+            if (_webTextLoader == null)
+            {
 #if UNITY_WEBGL && !UNITY_EDITOR
-            _webTextLoader = new UnityWebRequestTextLoader();
+                _webTextLoader = new UnityWebRequestTextLoader();
 #else
-            _webTextLoader = new HttpClientTextLoader();
+                _webTextLoader = new HttpClientTextLoader();
 #endif
-            return _webTextLoader;
+            }
+            // В поле — сам загрузчик, а не обёртка: освобождать в OnDisable нужно именно его
+            return new TimeoutWebTextLoader(_webTextLoader, TimeSpan.FromSeconds(_timeoutSeconds));
         }
 
         private void OnDisable()

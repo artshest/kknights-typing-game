@@ -1,13 +1,16 @@
 using Cysharp.Threading.Tasks;
+using KK.App.Texts;
 using KK.App.Timing;
 using KK.App.Typing;
 using KK.Core.Texts;
 using KK.Core.Typing;
 using KK.Infrastructure.Input;
 using KK.Infrastructure.Timing;
+using KK.Presentation.Loading;
 using KK.Presentation.Results;
 using KK.Presentation.Typing;
 using System;
+using System.Threading;
 using UnityEngine;
 
 namespace KK.Bootstrap
@@ -20,6 +23,8 @@ namespace KK.Bootstrap
         private TypingView _typingView;
         [SerializeField]
         private ResultsView _resultsView;
+        [SerializeField]
+        private LoadStatusView _loadStatusView;
 
         [Header("Normalization")]
         [SerializeField]
@@ -37,6 +42,8 @@ namespace KK.Bootstrap
             _resultsView.Hide();
             _resultsView.RestartRequested += HandleRestartRequested;
             _resultsView.NextTextRequested += HandleNextTextRequested;
+            _loadStatusView.Hide();
+            _loadStatusView.RetryRequested += HandleRetryRequested;
 
             // Ввод и часы живут, пока жив фасад; на каждый раунд пересоздаются только сессия и ViewModel
             _typingInput = new TextInputHandler();
@@ -53,20 +60,32 @@ namespace KK.Bootstrap
 
         private async UniTaskVoid StartSessionWithNewTextAsync()
         {
+            // Тот же токен, что уходит в загрузку: фильтр catch ниже проверяет именно его
+            CancellationToken ct = destroyCancellationToken;
+            _loadStatusView.ShowLoading();
+
             try
             {
-                string rawText = await _providerFactory.Create().GetTextAsync(destroyCancellationToken);
+                string rawText = await _providerFactory.Create().GetTextAsync(ct);
                 _text = TextNormalizer.Normalize(rawText, new TextNormalizationOptions { ReplaceYo = _replaceYo });
 
+                _loadStatusView.Hide();
                 StartSession();
             }
-            catch (OperationCanceledException)
+            // Глушим только отмену из-за уничтожения объекта. Любая другая отмена — ошибка, и игрок должен её увидеть
+            catch (OperationCanceledException) when (ct.IsCancellationRequested)
             {
-                // Объект уничтожили во время загрузки — это штатная ситуация, не ошибка
+            }
+            catch (TextLoadException e)
+            {
+                // Предупреждение, а не исключение: нет сети или статьи — ожидаемая ситуация, а не баг в коде
+                Debug.LogWarning($"Текст не загружен ({e.Reason}): {e}");
+                _loadStatusView.ShowError(e.Reason);
             }
             catch (Exception e)
             {
                 Debug.LogException(e);
+                _loadStatusView.ShowUnexpectedError();
             }
         }
 
@@ -102,10 +121,17 @@ namespace KK.Bootstrap
             StartSessionWithNewTextAsync().Forget();
         }
 
+        private void HandleRetryRequested()
+        {
+            // Сессии нет: загрузка упала раньше, чем она создалась, поэтому EndSession не нужен
+            StartSessionWithNewTextAsync().Forget();
+        }
+
         private void OnDestroy()
         {
             _resultsView.RestartRequested -= HandleRestartRequested;
             _resultsView.NextTextRequested -= HandleNextTextRequested;
+            _loadStatusView.RetryRequested -= HandleRetryRequested;
             _typingViewModel?.Dispose();
             _typingInput?.Dispose();
         }

@@ -26,7 +26,17 @@ namespace KK.Infrastructure.Texts.KKnights
         public async UniTask<string> GetTextAsync(CancellationToken ct = default)
         {
             string json = await _loader.LoadAsync(_apiUrl, ct);
-            return _selector.Select(KKnightsPostParser.Parse(json).Paragraphs);
+
+            // Ловим всё: разбор синхронный и сеть не трогает, значит любая ошибка здесь — неожиданный ответ сайта
+            // (не JSON, другая схема, пост без текста)
+            try
+            {
+                return _selector.Select(KKnightsPostParser.Parse(json).Paragraphs);
+            }
+            catch (Exception e)
+            {
+                throw new TextLoadException(TextLoadErrorReason.BadFormat, $"Не удалось разобрать ответ {_apiUrl}", e);
+            }
         }
     }
 }

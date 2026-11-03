@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using KK.App.Texts;
 using System.Threading;
 using UnityEngine.Networking;
 
@@ -12,9 +13,19 @@ namespace KK.Infrastructure.Web
         public async UniTask<string> LoadAsync(string url, CancellationToken ct = default)
         {
             using UnityWebRequest request = UnityWebRequest.Get(url);
-            // При ошибке сети или HTTP-коде не 2xx UniTask бросает UnityWebRequestException,
-            // при отмене — вызывает Abort() у запроса
-            await request.SendWebRequest().WithCancellation(ct);
+            try
+            {
+                // При ошибке сети или HTTP-коде не 2xx UniTask бросает UnityWebRequestException,
+                // при отмене — вызывает Abort() у запроса
+                await request.SendWebRequest().WithCancellation(ct);
+            }
+            catch (UnityWebRequestException e)
+            {
+                // TODO: проверить на WebGL (этап 7) — заблокированный CORS-запрос браузер отдаёт как сетевую ошибку без кода
+                TextLoadErrorReason reason = e.ResponseCode == 404 ? TextLoadErrorReason.NotFound : TextLoadErrorReason.Network;
+                throw new TextLoadException(reason, $"{e.Error} по адресу {url}", e);
+            }
+
             return request.downloadHandler.text;
         }
     }
