@@ -1,4 +1,5 @@
 using KK.App.Texts;
+using KK.Core.Texts;
 using KK.Infrastructure.Texts;
 using KK.Infrastructure.Texts.KKnights;
 using KK.Infrastructure.Web;
@@ -28,6 +29,9 @@ namespace KK.Bootstrap
         [Tooltip("Ссылка на статью kknights.com, например https://kknights.com/posts/5235-valor-mortis")]
         private string _articleLink;
         [SerializeField]
+        [Tooltip("Длина фрагмента статьи в символах. Абзацы не режутся, поэтому фрагмент бывает короче минимума")]
+        private TextFragmentOptions _fragmentOptions = new();
+        [SerializeField]
         private TextLibrary _textLibrary;
 
         private ITypingTextProvider _cachedProvider;
@@ -43,7 +47,8 @@ namespace KK.Bootstrap
             _cachedProvider = _type switch
             {
                 ProviderType.PredefinedText => new PredefinedTextProvider(_predefinedText),
-                ProviderType.PredefinedArticleUrl => new UrlArticleTextProvider(_articleLink, CreateWebTextLoader()),
+                ProviderType.PredefinedArticleUrl => new UrlArticleTextProvider(
+                    _articleLink, CreateWebTextLoader(), new TextFragmentSelector(_fragmentOptions, new System.Random())),
                 ProviderType.Library => new RandomTextProvider(_textLibrary.Texts, new System.Random()),
                 _ => throw new ArgumentOutOfRangeException(nameof(_type))
             };

@@ -24,6 +24,7 @@ namespace KK.Bootstrap.Editor
                     break;
                 case TypingTextProviderFactory.ProviderType.PredefinedArticleUrl:
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("_articleLink"));
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("_fragmentOptions"), true);
                     break;
                 case TypingTextProviderFactory.ProviderType.Library:
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("_textLibrary"));
