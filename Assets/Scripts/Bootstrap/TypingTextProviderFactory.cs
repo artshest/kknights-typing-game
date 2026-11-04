@@ -9,7 +9,7 @@ using UnityEngine.Serialization;
 
 namespace KK.Bootstrap
 {
-    public class TypingTextProviderFactory : MonoBehaviour
+    public class TypingTextProviderFactory : MonoBehaviour, ITypingTextProviderFactory
     {
         public enum ProviderType
         {

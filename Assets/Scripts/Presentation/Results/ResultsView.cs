@@ -1,3 +1,4 @@
+using KK.App.Flow.Screens;
 using KK.Core.Typing;
 using System;
 using TMPro;
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 
 namespace KK.Presentation.Results
 {
-    public class ResultsView : MonoBehaviour
+    public class ResultsView : MonoBehaviour, IResultsScreen
     {
         [SerializeField]
         private TextMeshProUGUI _speed;
@@ -35,6 +36,11 @@ namespace KK.Presentation.Results
 
         public void Hide()
         {
+            // При выгрузке сцены объекты уничтожаются в произвольном порядке: состояние может закрыть экран,
+            // который уже уничтожен, а обращение к его gameObject бросит MissingReferenceException
+            if (this == null)
+                return;
+
             gameObject.SetActive(false);
         }
 

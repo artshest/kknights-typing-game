@@ -1,3 +1,4 @@
+using KK.App.Flow.Screens;
 using KK.App.Texts;
 using System;
 using TMPro;
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 
 namespace KK.Presentation.Loading
 {
-    public class LoadStatusView : MonoBehaviour
+    public class LoadStatusView : MonoBehaviour, ILoadingScreen
     {
         [SerializeField]
         private TextMeshProUGUI _message;
@@ -33,6 +34,11 @@ namespace KK.Presentation.Loading
 
         public void Hide()
         {
+            // При выгрузке сцены объекты уничтожаются в произвольном порядке: состояние может закрыть экран,
+            // который уже уничтожен, а обращение к его gameObject бросит MissingReferenceException
+            if (this == null)
+                return;
+
             gameObject.SetActive(false);
         }
 
