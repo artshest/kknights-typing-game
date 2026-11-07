@@ -28,6 +28,71 @@ namespace KK.App.Tests.Flow
         }
 
         [Test]
+        public void TypingEnter_CreatesInputAndPassesToScreen()
+        {
+            _context.EnterTyping("текст");
+
+            Assert.That(_context.InputFactory.Created, Has.Count.EqualTo(1));
+            Assert.That(_context.TypingScreen.Input, Is.SameAs(_context.InputFactory.Last));
+            Assert.That(_context.InputFactory.Last.IsDisposed, Is.False);
+        }
+
+        [Test]
+        public void TypingExit_EndsScreenThenDisposesInput()
+        {
+            _context.EnterTyping("текст");
+            FakeTypingInput input = _context.InputFactory.Last;
+
+            _context.Machine.Exit();
+
+            Assert.That(_context.TypingScreen.InputDisposedAtEnd, Is.False, "Экран заканчивает раунд, пока ввод ещё жив");
+            Assert.That(input.IsDisposed, Is.True);
+        }
+
+        [Test]
+        public void TypingCompleted_DisposesInput()
+        {
+            _context.EnterTyping("текст");
+
+            _context.TypingScreen.Complete(SomeResult);
+
+            Assert.That(_context.InputFactory.Last.IsDisposed, Is.True);
+        }
+
+        [Test]
+        public void Restart_CreatesFreshInput()
+        {
+            _context.EnterTyping("текст");
+            FakeTypingInput first = _context.InputFactory.Last;
+            _context.TypingScreen.Complete(SomeResult);
+
+            _context.ResultsScreen.ClickRestart();
+
+            Assert.That(_context.InputFactory.Created, Has.Count.EqualTo(2));
+            Assert.That(first.IsDisposed, Is.True);
+            Assert.That(_context.InputFactory.Last.IsDisposed, Is.False);
+            Assert.That(_context.TypingScreen.Input, Is.SameAs(_context.InputFactory.Last));
+        }
+
+        [Test]
+        public void OutsideTyping_NoInputCreated()
+        {
+            // Пока игрок вводит ссылку в меню или ждёт загрузку, клавиатуру никто не слушает
+            _context.Machine.Enter<MenuState>();
+            _context.MenuScreen.ClickLibrary();
+
+            Assert.That(_context.InputFactory.Created, Is.Empty);
+        }
+
+        [Test]
+        public void TypingEnter_FactoryReturnsNull_Throws()
+        {
+            _context.InputFactory.ReturnNull = true;
+
+            Assert.Throws<InvalidOperationException>(() => _context.EnterTyping("текст"));
+        }
+
+        [Test]
         public void TypingCompleted_EntersResultsWithResult()
         {
             _context.EnterTyping("текст");
@@ -121,8 +186,9 @@ namespace KK.App.Tests.Flow
         [Test]
         public void Constructors_NullDependency_Throw()
         {
-            Assert.Throws<ArgumentNullException>(() => new TypingState(null, _context.TypingScreen));
-            Assert.Throws<ArgumentNullException>(() => new TypingState(_context.Machine, null));
+            Assert.Throws<ArgumentNullException>(() => new TypingState(null, _context.TypingScreen, _context.InputFactory));
+            Assert.Throws<ArgumentNullException>(() => new TypingState(_context.Machine, null, _context.InputFactory));
+            Assert.Throws<ArgumentNullException>(() => new TypingState(_context.Machine, _context.TypingScreen, null));
             Assert.Throws<ArgumentNullException>(() => new ResultsState(null, _context.ResultsScreen));
             Assert.Throws<ArgumentNullException>(() => new ResultsState(_context.Machine, null));
         }

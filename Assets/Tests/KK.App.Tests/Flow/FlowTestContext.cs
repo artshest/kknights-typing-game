@@ -19,6 +19,7 @@ namespace KK.App.Tests.Flow
         public readonly FakeResultsScreen ResultsScreen = new();
         public readonly FakeTextProviderFactory ProviderFactory = new();
         public readonly FakeAppLogger Logger = new();
+        public readonly FakeTypingInputFactory InputFactory = new();
 
         public ControlledTextProvider Provider => ProviderFactory.Provider;
 
@@ -27,7 +28,7 @@ namespace KK.App.Tests.Flow
             Machine.Register(new MenuState(Machine, MenuScreen, new FakeArticleLinkValidator(), DefaultLink));
             Machine.Register(new LoadingState(Machine, LoadingScreen, ProviderFactory,
                 new TextNormalizationOptions { ReplaceYo = replaceYo }, Logger));
-            Machine.Register(new TypingState(Machine, TypingScreen));
+            Machine.Register(new TypingState(Machine, TypingScreen, InputFactory));
             Machine.Register(new ResultsState(Machine, ResultsScreen));
         }
 

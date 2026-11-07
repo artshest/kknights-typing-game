@@ -1,5 +1,4 @@
 using KK.App.Flow;
-using KK.App.Typing;
 using KK.Core.Texts;
 using KK.Infrastructure.Input;
 using KK.Infrastructure.Logging;
@@ -41,7 +40,6 @@ namespace KK.Bootstrap
         [Tooltip("Заменять «ё» на «е»")]
         private bool _replaceYo = true;
 
-        private ITypingInput _typingInput;
         private GameStateMachine _stateMachine;
 
         private void Start()
@@ -50,16 +48,14 @@ namespace KK.Bootstrap
             _resultsView.Hide();
             _loadStatusView.Hide();
 
-            // Ввод живёт, пока жива точка входа; на каждый раунд пересоздаются только сессия и ViewModel
-            _typingInput = new TextInputHandler();
-            _typingView.Construct(_typingInput, new UnityClock());
+            _typingView.Construct(new UnityClock());
 
             _stateMachine = new GameStateMachine();
             _stateMachine.Register(new MenuState(_stateMachine, _menuView, new KKnightsArticleLinkValidator(),
                 _defaultArticleLink));
             _stateMachine.Register(new LoadingState(_stateMachine, _loadStatusView, _providerFactory,
                 new TextNormalizationOptions { ReplaceYo = _replaceYo }, new UnityAppLogger()));
-            _stateMachine.Register(new TypingState(_stateMachine, _typingView));
+            _stateMachine.Register(new TypingState(_stateMachine, _typingView, new TextInputHandlerFactory()));
             _stateMachine.Register(new ResultsState(_stateMachine, _resultsView));
 
             _stateMachine.Enter<MenuState>();
@@ -67,10 +63,8 @@ namespace KK.Bootstrap
 
         private void OnDestroy()
         {
-            // Выход из текущего состояния отменит загрузку или освободит ViewModel раунда
+            // Выход из текущего состояния отменит загрузку или освободит ввод и ViewModel раунда
             _stateMachine?.Exit();
-            // Ввод создала точка входа, ей и освобождать
-            _typingInput?.Dispose();
         }
     }
 }

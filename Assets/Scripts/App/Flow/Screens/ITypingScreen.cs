@@ -1,3 +1,4 @@
+using KK.App.Typing;
 using KK.Core.Typing;
 using System;
 
@@ -8,7 +9,8 @@ namespace KK.App.Flow.Screens
     {
         event Action<TypingResult> Completed;
 
-        void Begin(TypingSession session);
+        // Ввод создаёт и освобождает TypingState, экран только слушает его до End
+        void Begin(TypingSession session, ITypingInput input);
         // Не прячет набранный текст: он остаётся фоном под результатами и загрузкой
         void End();
     }

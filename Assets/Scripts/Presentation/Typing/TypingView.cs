@@ -1,4 +1,4 @@
-using KK.App.Flow.Screens;
+﻿using KK.App.Flow.Screens;
 using KK.App.Timing;
 using KK.App.Typing;
 using KK.Core.Typing;
@@ -25,26 +25,26 @@ namespace KK.Presentation.Typing
 
         public event Action<TypingResult> Completed;
 
-        private ITypingInput _typingInput;
         private IClock _clock;
         private TypingViewModel _viewModel;
         private DisposableBag _disposables;
 
-        // TODO: ввод и часы уйдут в TypingState вместе с логикой раунда (claude/TODO/typing-round-to-app-layer.md)
-        public void Construct(ITypingInput typingInput, IClock clock)
+        // TODO: часы уйдут в TypingState вместе с логикой раунда (claude/TODO/typing-round-to-app-layer.md)
+        public void Construct(IClock clock)
         {
-            _typingInput = typingInput ?? throw new ArgumentNullException(nameof(typingInput));
             _clock = clock ?? throw new ArgumentNullException(nameof(clock));
         }
 
-        public void Begin(TypingSession session)
+        public void Begin(TypingSession session, ITypingInput input)
         {
-            if (_typingInput == null)
+            if (input == null)
+                throw new ArgumentNullException(nameof(input));
+            if (_clock == null)
                 throw new InvalidOperationException($"Перед {nameof(Begin)} нужно вызвать {nameof(Construct)}");
 
             End();
 
-            _viewModel = new TypingViewModel(_typingInput, session, _clock);
+            _viewModel = new TypingViewModel(input, session, _clock);
             _viewModel.Completed += HandleCompleted;
 
             _viewModel.CurrentIndex
