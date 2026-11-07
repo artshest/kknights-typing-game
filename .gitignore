@@ -122,3 +122,7 @@ CLAUDE.local.md
 
 # Захваты профайлера — большие и локальные
 /[Pp]rofilerCaptures/
+
+# Хэш коммита для сборки — создаётся тулзой KK/Build только на время сборки
+/Assets/Resources/BuildCommit.txt
+/Assets/Resources/BuildCommit.txt.meta
