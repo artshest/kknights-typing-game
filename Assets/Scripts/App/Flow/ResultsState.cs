@@ -1,4 +1,5 @@
 using KK.App.Flow.Screens;
+using KK.App.Texts;
 using System;
 
 namespace KK.App.Flow
@@ -8,7 +9,7 @@ namespace KK.App.Flow
         private readonly GameStateMachine _stateMachine;
         private readonly IResultsScreen _screen;
 
-        private string _text;
+        private LoadedText _loadedText;
 
         public ResultsState(GameStateMachine stateMachine, IResultsScreen screen)
         {
@@ -18,9 +19,10 @@ namespace KK.App.Flow
 
         public void Enter(RoundResult round)
         {
-            _text = round.Text;
+            _loadedText = round.LoadedText;
             _screen.RestartRequested += HandleRestartRequested;
             _screen.NextTextRequested += HandleNextTextRequested;
+            _screen.MenuRequested += HandleMenuRequested;
             _screen.Show(round.Result);
         }
 
@@ -28,17 +30,23 @@ namespace KK.App.Flow
         {
             _screen.RestartRequested -= HandleRestartRequested;
             _screen.NextTextRequested -= HandleNextTextRequested;
+            _screen.MenuRequested -= HandleMenuRequested;
             _screen.Hide();
         }
 
         private void HandleRestartRequested()
         {
-            _stateMachine.Enter<TypingState, string>(_text);
+            _stateMachine.Enter<TypingState, LoadedText>(_loadedText);
         }
 
         private void HandleNextTextRequested()
         {
-            _stateMachine.Enter<LoadingState>();
+            _stateMachine.Enter<LoadingState, TextSource>(_loadedText.Source);
+        }
+
+        private void HandleMenuRequested()
+        {
+            _stateMachine.Enter<MenuState>();
         }
     }
 }

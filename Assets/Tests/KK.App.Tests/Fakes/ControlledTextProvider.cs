@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using KK.App.Texts;
@@ -46,9 +47,12 @@ namespace KK.App.Tests.Fakes
     {
         public ControlledTextProvider Provider { get; } = new();
         public Exception CreateException { get; set; }
+        public List<TextSource> RequestedSources { get; } = new();
 
-        public ITypingTextProvider Create()
+        public ITypingTextProvider Create(TextSource source)
         {
+            RequestedSources.Add(source);
+
             if (CreateException != null)
                 throw CreateException;
 

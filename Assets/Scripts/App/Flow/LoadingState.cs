@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace KK.App.Flow
 {
-    public class LoadingState : IState
+    public class LoadingState : IPayloadState<TextSource>
     {
         private readonly GameStateMachine _stateMachine;
         private readonly ILoadingScreen _screen;
@@ -16,6 +16,7 @@ namespace KK.App.Flow
         private readonly TextNormalizationOptions _normalizationOptions;
         private readonly IAppLogger _logger;
 
+        private TextSource _source;
         private CancellationTokenSource _loadCancellation;
 
         public LoadingState(GameStateMachine stateMachine, ILoadingScreen screen,
@@ -28,32 +29,36 @@ namespace KK.App.Flow
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public void Enter()
+        public void Enter(TextSource source)
         {
+            _source = source ?? throw new ArgumentNullException(nameof(source));
             _screen.RetryRequested += HandleRetryRequested;
+            _screen.MenuRequested += HandleMenuRequested;
             _loadCancellation = new CancellationTokenSource();
-            LoadAsync(_loadCancellation.Token).Forget();
+            LoadAsync(source, _loadCancellation.Token).Forget();
         }
 
         public void Exit()
         {
-            // Ушли с экрана загрузки — запрос больше никому не нужен
-            _loadCancellation.Cancel();
-            _loadCancellation.Dispose();
+            // Ушли с экрана загрузки — запрос больше никому не нужен.
+            // ?. — на случай, если Enter бросил на проверке аргумента и не создал источник отмены
+            _loadCancellation?.Cancel();
+            _loadCancellation?.Dispose();
             _loadCancellation = null;
 
             _screen.RetryRequested -= HandleRetryRequested;
+            _screen.MenuRequested -= HandleMenuRequested;
             _screen.Hide();
         }
 
-        private async UniTaskVoid LoadAsync(CancellationToken ct)
+        private async UniTaskVoid LoadAsync(TextSource source, CancellationToken ct)
         {
             _screen.ShowLoading();
             string text;
 
             try
             {
-                string rawText = await _providerFactory.Create().GetTextAsync(ct);
+                string rawText = await _providerFactory.Create(source).GetTextAsync(ct);
                 text = TextNormalizer.Normalize(rawText, _normalizationOptions);
 
                 if (text.Length == 0)
@@ -84,13 +89,19 @@ namespace KK.App.Flow
 
             // Переход вне try: ошибка следующего состояния — не ошибка загрузки, и показывать её на уже
             // закрытом экране загрузки нельзя
-            _stateMachine.Enter<TypingState, string>(text);
+            _stateMachine.Enter<TypingState, LoadedText>(new LoadedText(text, source));
         }
 
         private void HandleRetryRequested()
         {
-            // Повторный вход: Exit отменит прошлую загрузку, Enter начнёт новую
-            _stateMachine.Enter<LoadingState>();
+            // Повторный вход: Exit отменит прошлую загрузку, Enter начнёт новую из того же источника
+            _stateMachine.Enter<LoadingState, TextSource>(_source);
+        }
+
+        private void HandleMenuRequested()
+        {
+            // Exit отменит загрузку, если она ещё идёт
+            _stateMachine.Enter<MenuState>();
         }
     }
 }

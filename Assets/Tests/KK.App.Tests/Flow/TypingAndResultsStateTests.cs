@@ -1,5 +1,7 @@
 using System;
 using KK.App.Flow;
+using KK.App.Tests.Fakes;
+using KK.App.Texts;
 using KK.Core.Typing;
 using NUnit.Framework;
 
@@ -20,7 +22,7 @@ namespace KK.App.Tests.Flow
         [Test]
         public void TypingEnter_BeginsSessionWithText()
         {
-            _context.Machine.Enter<TypingState, string>("текст");
+            _context.EnterTyping("текст");
 
             Assert.That(_context.TypingScreen.Session.TypingText, Is.EqualTo("текст"));
         }
@@ -28,7 +30,7 @@ namespace KK.App.Tests.Flow
         [Test]
         public void TypingCompleted_EntersResultsWithResult()
         {
-            _context.Machine.Enter<TypingState, string>("текст");
+            _context.EnterTyping("текст");
 
             _context.TypingScreen.Complete(SomeResult);
 
@@ -41,7 +43,7 @@ namespace KK.App.Tests.Flow
         [Test]
         public void Restart_EntersTypingWithSameText()
         {
-            _context.Machine.Enter<TypingState, string>("текст");
+            _context.EnterTyping("текст");
             _context.TypingScreen.Complete(SomeResult);
 
             _context.ResultsScreen.ClickRestart();
@@ -56,20 +58,57 @@ namespace KK.App.Tests.Flow
         [Test]
         public void NextText_EntersLoading()
         {
-            _context.Machine.Enter<TypingState, string>("текст");
+            _context.EnterTyping("текст");
             _context.TypingScreen.Complete(SomeResult);
 
             _context.ResultsScreen.ClickNextText();
 
             Assert.That(_context.Machine.CurrentState, Is.InstanceOf<LoadingState>());
             Assert.That(_context.Provider.RequestCount, Is.EqualTo(1));
+            Assert.That(_context.ProviderFactory.RequestedSources, Is.EqualTo(new[] { FlowTestContext.Source }),
+                "Другой текст — из того же источника");
             Assert.That(_context.ResultsScreen.ShownResult, Is.Null);
+        }
+
+        [Test]
+        public void MenuRequested_EntersMenu()
+        {
+            _context.EnterTyping("текст");
+            _context.TypingScreen.Complete(SomeResult);
+
+            _context.ResultsScreen.ClickMenu();
+
+            Assert.That(_context.Machine.CurrentState, Is.InstanceOf<MenuState>());
+            Assert.That(_context.ResultsScreen.ShownResult, Is.Null);
+            Assert.That(_context.ResultsScreen.HasSubscribers, Is.False);
+            Assert.That(_context.MenuScreen.IsShown, Is.True);
+        }
+
+        [Test]
+        public void FullCircle_MenuLibraryResultsMenuArticle_LoadsArticle()
+        {
+            _context.Machine.Enter<MenuState>();
+            _context.MenuScreen.ClickLibrary();
+            _context.Provider.Complete("первый");
+            _context.TypingScreen.Complete(SomeResult);
+            _context.ResultsScreen.ClickMenu();
+
+            _context.MenuScreen.ClickArticle(FakeArticleLinkValidator.ValidLink);
+            _context.Provider.Complete("второй");
+
+            Assert.That(_context.ProviderFactory.RequestedSources, Is.EqualTo(new[]
+            {
+                TextSource.Library(),
+                TextSource.Article(FakeArticleLinkValidator.ValidLink)
+            }));
+            Assert.That(_context.Machine.CurrentState, Is.InstanceOf<TypingState>());
+            Assert.That(_context.TypingScreen.Session.TypingText, Is.EqualTo("второй"));
         }
 
         [Test]
         public void FullRound_LoadTypeNextText_TypesSecondText()
         {
-            _context.Machine.Enter<LoadingState>();
+            _context.EnterLoading();
             _context.Provider.Complete("первый");
             _context.TypingScreen.Complete(SomeResult);
             _context.ResultsScreen.ClickNextText();

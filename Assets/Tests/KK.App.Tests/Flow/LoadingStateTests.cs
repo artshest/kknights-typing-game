@@ -21,16 +21,30 @@ namespace KK.App.Tests.Flow
         [Test]
         public void Enter_ShowsLoadingAndRequestsText()
         {
-            _context.Machine.Enter<LoadingState>();
+            _context.EnterLoading();
 
             Assert.That(_context.LoadingScreen.Current, Is.EqualTo(FakeLoadingScreen.Status.Loading));
             Assert.That(_context.Provider.RequestCount, Is.EqualTo(1));
         }
 
         [Test]
+        public void Enter_RequestsProviderForGivenSource()
+        {
+            _context.EnterLoading();
+
+            Assert.That(_context.ProviderFactory.RequestedSources, Is.EqualTo(new[] { FlowTestContext.Source }));
+        }
+
+        [Test]
+        public void Enter_NullSource_Throws()
+        {
+            Assert.Throws<ArgumentNullException>(() => _context.Machine.Enter<LoadingState, TextSource>(null));
+        }
+
+        [Test]
         public void TextLoaded_EntersTypingWithNormalizedText()
         {
-            _context.Machine.Enter<LoadingState>();
+            _context.EnterLoading();
 
             _context.Provider.Complete("  Ёж\nи  ёлка  ");
 
@@ -43,7 +57,7 @@ namespace KK.App.Tests.Flow
         public void TextLoaded_ReplaceYoOff_KeepsYo()
         {
             var context = new FlowTestContext(replaceYo: false);
-            context.Machine.Enter<LoadingState>();
+            context.EnterLoading();
 
             context.Provider.Complete("ёж");
 
@@ -56,7 +70,7 @@ namespace KK.App.Tests.Flow
         [TestCase(TextLoadErrorReason.BadFormat)]
         public void LoadFails_ShowsReasonAndLogsWarning(TextLoadErrorReason reason)
         {
-            _context.Machine.Enter<LoadingState>();
+            _context.EnterLoading();
 
             _context.Provider.Fail(new TextLoadException(reason, "тест"));
 
@@ -71,7 +85,7 @@ namespace KK.App.Tests.Flow
         public void UnexpectedError_ShowsUnexpectedAndLogsException()
         {
             var error = new IOException("тест");
-            _context.Machine.Enter<LoadingState>();
+            _context.EnterLoading();
 
             _context.Provider.Fail(error);
 
@@ -85,7 +99,7 @@ namespace KK.App.Tests.Flow
             // Так ведёт себя фабрика при неверной ссылке на статью
             _context.ProviderFactory.CreateException = new ArgumentException("неверная ссылка");
 
-            _context.Machine.Enter<LoadingState>();
+            _context.EnterLoading();
 
             Assert.That(_context.LoadingScreen.Current, Is.EqualTo(FakeLoadingScreen.Status.UnexpectedError));
             Assert.That(_context.Logger.Exceptions, Has.Count.EqualTo(1));
@@ -96,7 +110,7 @@ namespace KK.App.Tests.Flow
         [TestCase("☃❤")]
         public void NothingToTypeAfterNormalization_ShowsUnexpectedError(string rawText)
         {
-            _context.Machine.Enter<LoadingState>();
+            _context.EnterLoading();
 
             _context.Provider.Complete(rawText);
 
@@ -108,7 +122,7 @@ namespace KK.App.Tests.Flow
         public void ForeignCancellation_ShowsUnexpectedError()
         {
             // Отмена, которую запросило не состояние, — не уход с экрана, а ошибка
-            _context.Machine.Enter<LoadingState>();
+            _context.EnterLoading();
 
             _context.Provider.Fail(new OperationCanceledException());
 
@@ -118,7 +132,7 @@ namespace KK.App.Tests.Flow
         [Test]
         public void Exit_WhileLoading_CancelsRequestSilently()
         {
-            _context.Machine.Enter<LoadingState>();
+            _context.EnterLoading();
 
             _context.Machine.Exit();
 
@@ -132,7 +146,7 @@ namespace KK.App.Tests.Flow
         public void TextArrivesAfterExit_DoesNotEnterTyping()
         {
             _context.Provider.IgnoreCancellation = true;
-            _context.Machine.Enter<LoadingState>();
+            _context.EnterLoading();
             _context.Machine.Exit();
 
             _context.Provider.Complete("текст");
@@ -144,22 +158,52 @@ namespace KK.App.Tests.Flow
         [Test]
         public void Exit_UnsubscribesFromRetry()
         {
-            _context.Machine.Enter<LoadingState>();
+            _context.EnterLoading();
 
             _context.Machine.Exit();
 
             Assert.That(_context.LoadingScreen.HasRetrySubscribers, Is.False);
+            Assert.That(_context.LoadingScreen.HasMenuSubscribers, Is.False);
+        }
+
+        [Test]
+        public void MenuRequested_WhileLoading_CancelsAndEntersMenuSilently()
+        {
+            _context.EnterLoading();
+
+            _context.LoadingScreen.ClickMenu();
+
+            Assert.That(_context.Machine.CurrentState, Is.InstanceOf<MenuState>());
+            Assert.That(_context.Provider.LastToken.IsCancellationRequested, Is.True);
+            Assert.That(_context.LoadingScreen.Current, Is.EqualTo(FakeLoadingScreen.Status.Hidden));
+            Assert.That(_context.MenuScreen.IsShown, Is.True);
+            Assert.That(_context.Logger.Warnings, Is.Empty);
+            Assert.That(_context.Logger.Exceptions, Is.Empty);
+        }
+
+        [Test]
+        public void MenuRequested_AfterError_EntersMenu()
+        {
+            _context.EnterLoading();
+            _context.Provider.Fail(new TextLoadException(TextLoadErrorReason.Network, "тест"));
+
+            _context.LoadingScreen.ClickMenu();
+
+            Assert.That(_context.Machine.CurrentState, Is.InstanceOf<MenuState>());
+            Assert.That(_context.LoadingScreen.Current, Is.EqualTo(FakeLoadingScreen.Status.Hidden));
         }
 
         [Test]
         public void Retry_AfterError_LoadsAgain()
         {
-            _context.Machine.Enter<LoadingState>();
+            _context.EnterLoading();
             _context.Provider.Fail(new TextLoadException(TextLoadErrorReason.Timeout, "тест"));
 
             _context.LoadingScreen.ClickRetry();
 
             Assert.That(_context.Provider.RequestCount, Is.EqualTo(2));
+            Assert.That(_context.ProviderFactory.RequestedSources,
+                Is.EqualTo(new[] { FlowTestContext.Source, FlowTestContext.Source }), "Повтор — из того же источника");
             Assert.That(_context.LoadingScreen.Current, Is.EqualTo(FakeLoadingScreen.Status.Loading));
 
             _context.Provider.Complete("текст");

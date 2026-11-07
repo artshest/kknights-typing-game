@@ -21,9 +21,12 @@ namespace KK.Presentation.Results
         private Button _restartButton;
         [SerializeField]
         private Button _nextTextButton;
+        [SerializeField]
+        private Button _menuButton;
 
         public event Action RestartRequested;
         public event Action NextTextRequested;
+        public event Action MenuRequested;
 
         public void Show(TypingResult result)
         {
@@ -48,12 +51,14 @@ namespace KK.Presentation.Results
         {
             _restartButton.onClick.AddListener(HandleRestartClicked);
             _nextTextButton.onClick.AddListener(HandleNextTextClicked);
+            _menuButton.onClick.AddListener(HandleMenuClicked);
         }
 
         private void OnDisable()
         {
             _restartButton.onClick.RemoveListener(HandleRestartClicked);
             _nextTextButton.onClick.RemoveListener(HandleNextTextClicked);
+            _menuButton.onClick.RemoveListener(HandleMenuClicked);
         }
 
         private void HandleRestartClicked()
@@ -64,6 +69,11 @@ namespace KK.Presentation.Results
         private void HandleNextTextClicked()
         {
             NextTextRequested?.Invoke();
+        }
+
+        private void HandleMenuClicked()
+        {
+            MenuRequested?.Invoke();
         }
     }
 }

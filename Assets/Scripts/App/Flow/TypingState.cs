@@ -4,12 +4,12 @@ using System;
 
 namespace KK.App.Flow
 {
-    public class TypingState : IPayloadState<string>
+    public class TypingState : IPayloadState<LoadedText>
     {
         private readonly GameStateMachine _stateMachine;
         private readonly ITypingScreen _screen;
 
-        private string _text;
+        private LoadedText _loadedText;
 
         public TypingState(GameStateMachine stateMachine, ITypingScreen screen)
         {
@@ -17,11 +17,11 @@ namespace KK.App.Flow
             _screen = screen ?? throw new ArgumentNullException(nameof(screen));
         }
 
-        public void Enter(string text)
+        public void Enter(LoadedText loadedText)
         {
-            _text = text;
+            _loadedText = loadedText;
             _screen.Completed += HandleCompleted;
-            _screen.Begin(new TypingSession(text));
+            _screen.Begin(new TypingSession(loadedText.Text));
         }
 
         public void Exit()
@@ -32,7 +32,7 @@ namespace KK.App.Flow
 
         private void HandleCompleted(TypingResult result)
         {
-            _stateMachine.Enter<ResultsState, RoundResult>(new RoundResult(result, _text));
+            _stateMachine.Enter<ResultsState, RoundResult>(new RoundResult(result, _loadedText));
         }
     }
 }

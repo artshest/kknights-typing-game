@@ -2,16 +2,16 @@ using KK.Core.Typing;
 
 namespace KK.App.Flow
 {
-    // Результатам нужен и текст: «Ещё раз» начинает новый раунд с ним же
+    // Результатам нужен и текст с источником: из них решается, с чего начать следующий раунд
     public readonly struct RoundResult
     {
         public readonly TypingResult Result;
-        public readonly string Text;
+        public readonly LoadedText LoadedText;
 
-        public RoundResult(TypingResult result, string text)
+        public RoundResult(TypingResult result, LoadedText loadedText)
         {
             Result = result;
-            Text = text;
+            LoadedText = loadedText;
         }
     }
 }

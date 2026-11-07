@@ -8,9 +8,10 @@ namespace KK.App.Tests.Fakes
     {
         public event Action RestartRequested;
         public event Action NextTextRequested;
+        public event Action MenuRequested;
 
         public TypingResult? ShownResult { get; private set; }
-        public bool HasSubscribers => RestartRequested != null || NextTextRequested != null;
+        public bool HasSubscribers => RestartRequested != null || NextTextRequested != null || MenuRequested != null;
 
         public void Show(TypingResult result)
         {
@@ -30,6 +31,11 @@ namespace KK.App.Tests.Fakes
         public void ClickNextText()
         {
             NextTextRequested?.Invoke();
+        }
+
+        public void ClickMenu()
+        {
+            MenuRequested?.Invoke();
         }
     }
 }

@@ -7,6 +7,7 @@ namespace KK.App.Flow.Screens
     {
         event Action RestartRequested;
         event Action NextTextRequested;
+        event Action MenuRequested;
 
         void Show(TypingResult result);
         void Hide();

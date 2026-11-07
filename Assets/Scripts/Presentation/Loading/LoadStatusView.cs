@@ -13,8 +13,11 @@ namespace KK.Presentation.Loading
         private TextMeshProUGUI _message;
         [SerializeField]
         private Button _retryButton;
+        [SerializeField]
+        private Button _menuButton;
 
         public event Action RetryRequested;
+        public event Action MenuRequested;
 
         public void ShowLoading()
         {
@@ -52,16 +55,23 @@ namespace KK.Presentation.Loading
         private void OnEnable()
         {
             _retryButton.onClick.AddListener(HandleRetryClicked);
+            _menuButton.onClick.AddListener(HandleMenuClicked);
         }
 
         private void OnDisable()
         {
             _retryButton.onClick.RemoveListener(HandleRetryClicked);
+            _menuButton.onClick.RemoveListener(HandleMenuClicked);
         }
 
         private void HandleRetryClicked()
         {
             RetryRequested?.Invoke();
+        }
+
+        private void HandleMenuClicked()
+        {
+            MenuRequested?.Invoke();
         }
     }
 }

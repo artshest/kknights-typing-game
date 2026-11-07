@@ -8,28 +8,21 @@ namespace KK.Bootstrap.Editor
     {
         public override void OnInspectorGUI()
         {
-            var type = serializedObject.FindProperty("_type");
-            EditorGUILayout.PropertyField(type);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("_textLibrary"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("_fragmentOptions"), true);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("_timeoutSeconds"));
 
-            var enumValue = (TypingTextProviderFactory.ProviderType)type.enumValueIndex;
-            switch (enumValue)
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Отладка", EditorStyles.boldLabel);
+            var useDebugText = serializedObject.FindProperty("_useDebugText");
+            EditorGUILayout.PropertyField(useDebugText);
+
+            if (useDebugText.boolValue)
             {
-                case TypingTextProviderFactory.ProviderType.PredefinedText:
-
-                    // Почему-то если не делать GUIContent.none, то в инспекторе рисуется 2 лейбла проперти,
-                    // один из которых налезает на проперти type. Так что пока убрал лейбл
-                    // TODO: разобраться почему так!
-
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("_predefinedText"), GUIContent.none);
-                    break;
-                case TypingTextProviderFactory.ProviderType.PredefinedArticleUrl:
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("_articleLink"));
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("_fragmentOptions"), true);
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("_timeoutSeconds"));
-                    break;
-                case TypingTextProviderFactory.ProviderType.Library:
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("_textLibrary"));
-                    break;
+                // Почему-то если не делать GUIContent.none, то в инспекторе рисуется 2 лейбла проперти,
+                // один из которых налезает на соседнее поле. Так что пока убрал лейбл
+                // TODO: разобраться почему так!
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("_debugText"), GUIContent.none);
             }
 
             serializedObject.ApplyModifiedProperties();
