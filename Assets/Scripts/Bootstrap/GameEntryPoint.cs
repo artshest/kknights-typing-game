@@ -36,7 +36,6 @@ namespace KK.Bootstrap
 
         [Header("Normalization")]
         [SerializeField]
-        // TODO: убрать, когда появятся настройки игрока
         [Tooltip("Заменять «ё» на «е»")]
         private bool _replaceYo = true;
 

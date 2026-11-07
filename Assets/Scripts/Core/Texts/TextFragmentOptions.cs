@@ -6,7 +6,6 @@ namespace KK.Core.Texts
     [Serializable]
     public class TextFragmentOptions
     {
-        // TODO: брать из настроек игрока
         public int MinLength = 300;
         public int MaxLength = 600;
     }

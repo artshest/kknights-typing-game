@@ -21,7 +21,6 @@ namespace KK.Bootstrap.Editor
             {
                 // Почему-то если не делать GUIContent.none, то в инспекторе рисуется 2 лейбла проперти,
                 // один из которых налезает на соседнее поле. Так что пока убрал лейбл
-                // TODO: разобраться почему так!
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("_debugText"), GUIContent.none);
             }
 

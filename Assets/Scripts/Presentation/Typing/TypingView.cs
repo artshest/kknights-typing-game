@@ -39,7 +39,6 @@ namespace KK.Presentation.Typing
         private TypingViewModel _viewModel;
         private DisposableBag _disposables;
 
-        // TODO: часы уйдут в TypingState вместе с логикой раунда (claude/TODO/typing-round-to-app-layer.md)
         public void Construct(IClock clock)
         {
             _clock = clock ?? throw new ArgumentNullException(nameof(clock));

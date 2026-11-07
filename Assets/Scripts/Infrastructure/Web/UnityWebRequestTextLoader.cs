@@ -21,7 +21,6 @@ namespace KK.Infrastructure.Web
             }
             catch (UnityWebRequestException e)
             {
-                // TODO: проверить на WebGL (этап 7) — заблокированный CORS-запрос браузер отдаёт как сетевую ошибку без кода
                 TextLoadErrorReason reason = e.ResponseCode == 404 ? TextLoadErrorReason.NotFound : TextLoadErrorReason.Network;
                 throw new TextLoadException(reason, $"{e.Error} по адресу {url}", e);
             }
