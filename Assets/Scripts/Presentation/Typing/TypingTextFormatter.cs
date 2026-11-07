@@ -5,16 +5,14 @@ namespace KK.Presentation.Typing
 {
     public static class TypingTextFormatter
     {
-        private const string TypedOpen = "<color=#FFFFFF33>";
-        private const string RemainingOpen = "<color=#FF9E4A>";
+        private const string TypedOpen = "<color=#F2F0F7>";
+        private const string RemainingOpen = "<color=#8E8B9B>";
         private const string ColorClose = "</color>";
 
-        private const string CurrentOpen = "<u>";
-        private const string CurrentClose = "</u>";
-
-        // Фон, а не только цвет: иначе ошибка на пробеле не видна
-        private const string MistakeOpen = "<color=#FF4D4D><mark=#FF4D4D40>";
-        private const string MistakeClose = "</mark></color>";
+        // Фон под текущим символом рисует TypingCaret (оранжевый, при ошибке красный — так видна
+        // и ошибка на пробеле), поэтому здесь только цвет буквы, контрастный этому фону
+        private const string CurrentOpen = "<color=#1A1208>";
+        private const string MistakeOpen = "<color=#F2F0F7>";
 
         // Тег TMP открывается только символом '<', поэтому достаточно защитить каждый '<' —
         // это закрывает и «</noparse>» внутри самого текста. &lt; TMP не поддерживает
@@ -45,7 +43,7 @@ namespace KK.Presentation.Typing
                 builder.Append(RemainingOpen);
                 builder.Append(hasMistake ? MistakeOpen : CurrentOpen);
                 AppendEscaped(builder, text, currentIndex, 1);
-                builder.Append(hasMistake ? MistakeClose : CurrentClose);
+                builder.Append(ColorClose);
                 AppendEscaped(builder, text, currentIndex + 1, text.Length - currentIndex - 1);
                 builder.Append(ColorClose);
             }

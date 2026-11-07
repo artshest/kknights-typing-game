@@ -11,7 +11,7 @@ namespace KK.Presentation.Tests.Typing
         {
             string result = TypingTextFormatter.Format("abc", 0, false);
 
-            Assert.That(result, Is.EqualTo("<color=#FF9E4A><u>a</u>bc</color>"));
+            Assert.That(result, Is.EqualTo("<color=#8E8B9B><color=#1A1208>a</color>bc</color>"));
         }
 
         [Test]
@@ -19,16 +19,16 @@ namespace KK.Presentation.Tests.Typing
         {
             string result = TypingTextFormatter.Format("abc", 1, false);
 
-            Assert.That(result, Is.EqualTo("<color=#FFFFFF33>a</color><color=#FF9E4A><u>b</u>c</color>"));
+            Assert.That(result, Is.EqualTo("<color=#F2F0F7>a</color><color=#8E8B9B><color=#1A1208>b</color>c</color>"));
         }
 
         [Test]
-        public void Format_Mistake_MarksCurrentChar()
+        public void Format_Mistake_UsesMistakeColorForCurrentChar()
         {
             string result = TypingTextFormatter.Format("abc", 1, true);
 
             Assert.That(result, Is.EqualTo(
-                "<color=#FFFFFF33>a</color><color=#FF9E4A><color=#FF4D4D><mark=#FF4D4D40>b</mark></color>c</color>"));
+                "<color=#F2F0F7>a</color><color=#8E8B9B><color=#F2F0F7>b</color>c</color>"));
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace KK.Presentation.Tests.Typing
         {
             string result = TypingTextFormatter.Format("ab", 2, false);
 
-            Assert.That(result, Is.EqualTo("<color=#FFFFFF33>ab</color>"));
+            Assert.That(result, Is.EqualTo("<color=#F2F0F7>ab</color>"));
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace KK.Presentation.Tests.Typing
         {
             string result = TypingTextFormatter.Format("<b>", 0, false);
 
-            Assert.That(result, Is.EqualTo("<color=#FF9E4A><u><noparse><</noparse></u>b></color>"));
+            Assert.That(result, Is.EqualTo("<color=#8E8B9B><color=#1A1208><noparse><</noparse></color>b></color>"));
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace KK.Presentation.Tests.Typing
         {
             string result = TypingTextFormatter.Format(@"\u", 0, false);
 
-            Assert.That(result, Is.EqualTo(@"<color=#FF9E4A><u>\<noparse></noparse></u>u</color>"));
+            Assert.That(result, Is.EqualTo(@"<color=#8E8B9B><color=#1A1208>\<noparse></noparse></color>u</color>"));
         }
 
         [Test]

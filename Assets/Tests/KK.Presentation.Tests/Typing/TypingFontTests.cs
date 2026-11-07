@@ -11,11 +11,14 @@ namespace KK.Presentation.Tests.Typing
     {
         private const string FontAssetPath = "Assets/Fonts/NotoSans/NotoSans-Regular SDF.asset";
 
-        [Test]
-        public void FontAsset_ContainsAllCharsAllowedByNormalizer()
+        // Все шрифты, которыми может выводиться текст для набора или сообщения игроку
+        [TestCase(FontAssetPath)]
+        [TestCase("Assets/Fonts/Galmuri/Galmuri9 SDF.asset")]
+        [TestCase("Assets/Fonts/PressStart2P/PressStart2P-Regular SDF.asset")]
+        public void FontAsset_ContainsAllCharsAllowedByNormalizer(string path)
         {
-            var font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontAssetPath);
-            Assert.That(font, Is.Not.Null, $"Шрифт {FontAssetPath} не найден");
+            var font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(path);
+            Assert.That(font, Is.Not.Null, $"Шрифт {path} не найден");
 
             var missing = new List<char>();
             foreach (char ch in AllowedChars())

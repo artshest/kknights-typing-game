@@ -13,15 +13,25 @@ namespace KK.Presentation.Typing
     {
         [SerializeField]
         private TextMeshProUGUI _typingTextMesh;
+        [SerializeField]
+        private TypingCaret _caret;
+        [SerializeField]
+        private KeyboardView _keyboard;
+        [SerializeField]
+        private SegmentedProgressBar _progressBar;
 
         [Space]
         [Header("Stats")]
         [SerializeField]
-        private TextMeshProUGUI _total;
+        private TextMeshProUGUI _typedCount;
         [SerializeField]
         private TextMeshProUGUI _speed;
         [SerializeField]
+        private TextMeshProUGUI _accuracy;
+        [SerializeField]
         private TextMeshProUGUI _totalMistakes;
+        [SerializeField]
+        private TextMeshProUGUI _duration;
 
         public event Action<TypingResult> Completed;
 
@@ -48,8 +58,8 @@ namespace KK.Presentation.Typing
             _viewModel.Completed += HandleCompleted;
 
             _viewModel.CurrentIndex
-                .CombineLatest(_viewModel.HasMistake, (index, hasMistake) => TypingTextFormatter.Format(_viewModel.TypingText, index, hasMistake))
-                .Subscribe(text => _typingTextMesh.text = text)
+                .CombineLatest(_viewModel.HasMistake, (index, hasMistake) => (index, hasMistake))
+                .Subscribe(state => ShowProgress(state.index, state.hasMistake))
                 .AddTo(ref _disposables);
             _viewModel.Stats.Subscribe(ShowStats).AddTo(ref _disposables);
         }
@@ -66,6 +76,13 @@ namespace KK.Presentation.Typing
             _viewModel.Completed -= HandleCompleted;
             _viewModel.Dispose();
             _viewModel = null;
+
+            // Набранный текст остаётся фоном, а подсказки «что жать дальше» после раунда уже лишние.
+            // Проверки на null: при выгрузке сцены дочерние объекты могут быть уничтожены раньше
+            if (_caret != null)
+                _caret.Hide();
+            if (_keyboard != null)
+                _keyboard.Clear();
         }
 
         private void Update()
@@ -79,11 +96,31 @@ namespace KK.Presentation.Typing
             Completed?.Invoke(result);
         }
 
+        private void ShowProgress(int index, bool hasMistake)
+        {
+            string text = _viewModel.TypingText;
+            _typingTextMesh.text = TypingTextFormatter.Format(text, index, hasMistake);
+            _typedCount.text = TypingStatsFormatter.FormatTypedCount(index, text.Length);
+            _progressBar.SetProgress(text.Length == 0 ? 1f : (float)index / text.Length);
+
+            if (index < text.Length)
+            {
+                _caret.Show(index, hasMistake);
+                _keyboard.Highlight(text[index], hasMistake);
+            }
+            else
+            {
+                _caret.Hide();
+                _keyboard.Clear();
+            }
+        }
+
         private void ShowStats(TypingResult stats)
         {
-            _total.text = stats.CorrectCount.ToString();
-            _speed.text = stats.CharactersPerMinute.ToString("F0");
-            _totalMistakes.text = stats.Mistakes.ToString();
+            _speed.text = TypingStatsFormatter.FormatSpeed(stats.CharactersPerMinute);
+            _accuracy.text = TypingStatsFormatter.FormatAccuracy(stats.Accuracy);
+            _totalMistakes.text = TypingStatsFormatter.FormatMistakes(stats.Mistakes);
+            _duration.text = TypingStatsFormatter.FormatSeconds(stats.Duration);
         }
 
         private void OnDestroy()
