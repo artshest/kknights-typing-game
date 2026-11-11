@@ -55,7 +55,11 @@ namespace KK.Build.Editor
                 .Select(a => a.name)
                 .ToList();
             if (mcpAssemblies.Count > 0)
-                result.Warnings.Add($"В сборку попадёт {string.Join(", ", mcpAssemblies)} (см. stage-7-platforms.md).");
+                result.Warnings.Add(
+                    $"В сборку попадёт {string.Join(", ", mcpAssemblies)} — часть редакторского плагина Unity MCP, " +
+                    "игроку не нужна. Плагин должен лежать локальной копией в Packages/com.coplaydev.unity-mcp " +
+                    "с \"includePlatforms\": [\"Editor\"] в Runtime/MCPForUnity.Runtime.asmdef — правка теряется " +
+                    "при обновлении пакета или при подключении его через manifest.json.");
 
             return result;
         }

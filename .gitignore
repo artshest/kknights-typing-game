@@ -126,3 +126,6 @@ CLAUDE.local.md
 # Хэш коммита для сборки — создаётся тулзой KK/Build только на время сборки
 /Assets/Resources/BuildCommit.txt
 /Assets/Resources/BuildCommit.txt.meta
+
+# Unity MCP — локальный embedded-пакет разработчика, в репозиторий не входит (Runtime-asmdef сделан Editor-only)
+/Packages/com.coplaydev.unity-mcp/
