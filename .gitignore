@@ -113,12 +113,26 @@ InitTestScene*.unity*
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
 
-# Claude Code
+# Локальные файлы агентов: инструкции, настройки, заметки, задачи и отчёты
+# Новые файлы для работы агентов хранить в /agents/ или явно добавлять сюда.
 .claude/
+.codex/
+.agents/
+AGENTS.md
+AGENTS.override.md
+AGENTS.local.md
 CLAUDE.md
 CLAUDE.local.md
 .mcp.json
+/agents/
+# Старое имя — чтобы случайно восстановленные локальные файлы тоже не попали в Git.
 /claude/
+# Справочники для агентов; остальные docs/ (включая images/) остаются общими.
+/docs/architecture.md
+/docs/typing-rules.md
+/docs/ui-conventions.md
+/docs/build-conventions.md
+/portfolio-reviews/
 
 # Захваты профайлера — большие и локальные
 /[Pp]rofilerCaptures/
